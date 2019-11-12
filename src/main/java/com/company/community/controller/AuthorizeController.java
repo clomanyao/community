@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @Controller
 public class AuthorizeController {
@@ -24,7 +26,8 @@ public class AuthorizeController {
     //当用户点击登陆按钮时，会去github得到授权,然后返回回到redirect_uri地址，并且携带code和state
     @GetMapping("/callback")
     public String callback(@RequestParam("code") String code,
-                           @RequestParam("state") String state) {
+                           @RequestParam("state") String state,
+                           HttpServletRequest request) {
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(client_id);
         accessTokenDTO.setClient_secret(client_secret);
@@ -33,8 +36,16 @@ public class AuthorizeController {
         accessTokenDTO.setRedirect_uri(redirect_uri);
         String accessToken = gitHubPrivoder.getAccessToken(accessTokenDTO);
         GitHubUser user = gitHubPrivoder.getUser(accessToken);
+        user.setName("admin");
         System.out.println(user.getName());
-        return "index";
+        if(user!=null){
+            request.getSession().setAttribute("user",user);
+            //注意:和/不能有间隔
+            return "redirect:/";
+        }
+        else{
+            return "redirect:/";
+        }
     }
 
 }
