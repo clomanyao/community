@@ -1,6 +1,7 @@
 package com.company.community;
 
 import com.company.community.dto.AccessTokenDTO;
+import com.company.community.models.Publish;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class CommunityApplicationTests {
 
     @Test
     public void contextLoads() {
-       // System.out.println(accessTokenDTO);
+
     }
 
 }

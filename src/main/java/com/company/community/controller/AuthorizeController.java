@@ -53,7 +53,9 @@ public class AuthorizeController {
             user.setGmtModified(user.getGmtCreate());
             userMapper.insertUser(user);
             //添加token到cookie中,通过response响应到浏览器
-            response.addCookie(new Cookie("token", token));
+            Cookie cookie = new Cookie("token", token);
+            cookie.setMaxAge(60*60);
+            response.addCookie(cookie);
             //注意:和/不能有间隔
             return "redirect:/";
         } else {
