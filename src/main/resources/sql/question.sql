@@ -1,4 +1,4 @@
-create table if not EXISTS question(
+create table if not EXISTS publish(
 id int PRIMARY key not null auto_increment,
 title VARCHAR(25),
 description TEXT,
