@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.swing.plaf.PanelUI;
+import java.text.DateFormat;
+import java.util.Date;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CommunityApplicationTests {
@@ -15,7 +19,6 @@ public class CommunityApplicationTests {
 
     @Test
     public void contextLoads() {
-
     }
 
 }

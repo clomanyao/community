@@ -5,6 +5,7 @@ import com.company.community.dto.GitHubUser;
 import com.company.community.mapper.UserMapper;
 import com.company.community.models.User;
 import com.company.community.privoder.GitHubPrivoder;
+import com.company.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -27,8 +28,10 @@ public class AuthorizeController {
     private String client_secret;
     @Value("${github.accesstoken.redirect_uri}")
     private String redirect_uri;
+//    @Autowired
+//    private UserMapper userMapper;
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     //当用户点击登陆按钮时，会去github得到授权,然后返回回到redirect_uri地址，并且携带code和state
     @GetMapping("/callback")
@@ -53,7 +56,7 @@ public class AuthorizeController {
             user.setGmtModified(user.getGmtCreate());
             user.setBio(gitHubUser.getBio());
             user.setAvatarUrl(gitHubUser.getAvatarUrl());
-            userMapper.insertUser(user);
+            userService.insertUser(user);
             //添加token到cookie中,通过response响应到浏览器
             Cookie cookie = new Cookie("token", token);
             cookie.setMaxAge(60*60);

@@ -7,7 +7,34 @@
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
-<body>
+<body style="background-color: #efefef">
 <div th:replace="~{bar::copy}"></div>
+<div class="container-fluid" style="margin: 20px;background-color:white">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h3><span class="glyphicon glyphicon-list" aria-hidden="true"> 发现</span></h3>
+            <hr>
+            <!--bootstrap中的媒体中-->
+            <div class="media" th:each="publishDTOS: ${publishDTOS}">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img-thumbnail" style="width: 40px;height: 40px;"
+                             th:src="${publishDTOS.user.avatarUrl}">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">[[${publishDTOS.title}]]</h4>
+                    <span style="font-size: 12px;font-weight: normal;color:#999;">回复了问题 • [[${publishDTOS.likeCount}]] 人关注 • [[${publishDTOS.commentCount}]] 个回复 • [[${publishDTOS.viewCount}]] 次浏览 • <span th:text="${#dates.format(publishDTOS.gmtCreate,'yyyy-MM-dd hh:mm')}"></span>
+                    </span>
+                </div>
+                <hr style="margin-top: 10px;margin-bottom: 5px;">
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <h3>热门话题</h3>
+
+        </div>
+    </div>
+</div>
 </body>
 </html>
