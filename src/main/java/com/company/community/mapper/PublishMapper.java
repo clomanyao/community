@@ -4,6 +4,7 @@ import com.company.community.models.Publish;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -21,5 +22,8 @@ public interface PublishMapper {
 
     @Select("select * from publish p where p.id=#{id}")
     Publish selectPublishById(Integer id);
+
+    @Update("update publish p set p.tag=#{tag},p.description=#{description},p.title=#{title},p.gmt_modified=#{gmtModified} where p.id =#{id}")
+    void updateQuestion(Publish publish);
 
 }

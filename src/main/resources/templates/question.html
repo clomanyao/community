@@ -28,7 +28,7 @@
                 <hr>
             </div>
            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <a th:href="@{/publish}"><span class="glyphicon glyphicon-edit" th:if="${session.user.name==publishDTO.user.name}">编辑</span></a>
+                  <a th:href="@{'/publish/'+${publishDTO.id}}"><span class="glyphicon glyphicon-edit" th:if="${session.user.name==publishDTO.user.name}">编辑</span></a>
            </div>
 
         </div>

@@ -17,13 +17,15 @@
             <h3><span class="glyphicon glyphicon-plus" aria-hidden="true">发起</span></h3>
             <hr>
             <form th:action="@{/publish}" th:method="post">
+                <input type="hidden" name="id" th:value="${publish.id}">
                 <div class="form-group">
                     <label for="title">问题标题 (简单扼要)</label>
                     <input type="text" class="form-control" id="title" name="title" th:value="${publish!=null}?${publish.getTitle()}" placeholder="问题标题">
                 </div>
                 <div class="form-group">
                     <label>问题补充（必填）,请参看右侧提示</label>
-                    <textarea class="form-control" name="description" th:value="${publish!=null}?${publish.getDescription()}" placeholder="请填写问题具体内容" rows="5"></textarea>
+                    <!--注意：有坑，input要用value回显，用text会不再input中显示，但textarea要用text回显，value不会回显-->
+                    <textarea class="form-control" name="description" th:text="${publish!=null}?${publish.getDescription()}"  placeholder="请填写问题具体内容" rows="5"></textarea>
                 </div>
                 <div class="form-group">
                     <label>添加标签</label>

@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class PublishService {
 
-    private final static  Integer navigatePages=3;
+    private final static Integer navigatePages=3;
 
     @Autowired
     private PublishMapper publishMapper;
@@ -67,6 +67,19 @@ public class PublishService {
         User user = userMapper.selectByCreattorId(publish.getCreator());
         publishDTO.setUser(user);
         return publishDTO;
+    }
+
+    public void updateOrinsertQuestion(Publish publish,Integer id){
+        if(id!=null){
+            //更新
+            publish.setGmtModified(System.currentTimeMillis());
+            publishMapper.updateQuestion(publish);
+        }else{
+            //插入
+            publish.setGmtCreate(System.currentTimeMillis())
+                   .setGmtModified(publish.getGmtCreate());
+            publishMapper.insertProblem(publish);
+        }
     }
 
 }
