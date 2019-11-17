@@ -16,4 +16,7 @@ public interface PublishMapper {
     @Select("select * from publish")
     List<Publish> selectPublishList();
 
+    @Select("select * from publish p where p.creator=#{createId}")
+    List<Publish> selectPublistByCreatorId(Integer createId);
+
 }

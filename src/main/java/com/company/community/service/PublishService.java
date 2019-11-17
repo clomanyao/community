@@ -17,6 +17,9 @@ import java.util.List;
 
 @Service
 public class PublishService {
+
+    private final static  Integer navigatePages=3;
+
     @Autowired
     private PublishMapper publishMapper;
 
@@ -26,7 +29,7 @@ public class PublishService {
     @Autowired
     private PageDTO pageDTO;
 
-    public List<PublishDTO> selectPublishList(Integer pageNum,Integer pageSize,Integer navigatePages){
+    public List<PublishDTO> selectPublishList(Integer pageNum,Integer pageSize){
         List<PublishDTO> dtoArrrayList = new ArrayList<PublishDTO>();
         //分页查询
         PageHelper.startPage(pageNum,pageSize);
@@ -40,11 +43,19 @@ public class PublishService {
             publishDTO.setUser(user);
             dtoArrrayList.add(publishDTO);
         }
-        //每次连续查询3页
+        //每次连续查询n页
         PageInfo<Publish> pageInfo = new PageInfo<>(publishList, navigatePages);
         pageDTO.setPageInfo(pageInfo);
         return dtoArrrayList;
-
     }
 
+
+    public List<Publish> selectPublistByCreatorId(Integer createId,Integer pageNum,Integer pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        List<Publish> publishList = publishMapper.selectPublistByCreatorId(createId);
+        //连续展示的页面
+        PageInfo<Publish> profilePageInfo = new PageInfo<>(publishList,navigatePages);
+        pageDTO.setProfilePageInfo(profilePageInfo);
+        return  publishList;
+    }
 }

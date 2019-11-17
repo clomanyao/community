@@ -2,7 +2,6 @@ package com.company.community.controller;
 
 import com.company.community.dto.AccessTokenDTO;
 import com.company.community.dto.GitHubUser;
-import com.company.community.mapper.UserMapper;
 import com.company.community.models.User;
 import com.company.community.privoder.GitHubPrivoder;
 import com.company.community.service.UserService;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
@@ -59,7 +57,7 @@ public class AuthorizeController {
             userService.insertUser(user);
             //添加token到cookie中,通过response响应到浏览器
             Cookie cookie = new Cookie("token", token);
-            cookie.setMaxAge(60*60);
+            cookie.setMaxAge(60*60*24*30);
             response.addCookie(cookie);
             //注意:和/不能有间隔
             return "redirect:/";

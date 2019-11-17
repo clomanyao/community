@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${selectName}"></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body style="background-color: #efefef">
+<div th:replace="~{bar::copy}"></div>
+<div class="container-fluid" style="margin: 20px;background-color:white">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h3>[[${selectName}]]</h3>
+            <hr>
+            <div class="media" th:each="publishList: ${publishList}">
+          <!--图像展示略-->
+                <div class="media-body">
+                        <h4 class="media-heading">[[${publishList.title}]]</h4>
+                        <span style="font-size: 12px;font-weight: normal;color:#999;">回复了问题 • [[${publishList.likeCount}]] 人关注 • [[${publishList.commentCount}]] 个回复 • [[${publishList.viewCount}]] 次浏览 • <span th:text="${#dates.format(publishList.gmtCreate,'yyyy-MM-dd hh:mm')}"></span>
+                    </span>
+                </div>
+                <hr style="margin-top: 10px;margin-bottom: 5px;">
+            </div>
+            <!--分页-->
+            <nav aria-label="Page navigation" style="margin-left: 400px;">
+                <ul class="pagination">
+                    <li th:if="${!profilePageInfo.isIsFirstPage()}">
+                        <a th:href="@{'/profile/'+${question}(pageNum=1)}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li th:each="nums:${nums}" th:class="${nums==profilePageInfo.getPageNum()}? 'active'">
+                        <a th:href="@{'/profile/'+${question}(pageNum=${nums})}">[[${nums}]]</a>
+                    </li>
+                    <li th:if="${!profilePageInfo.isIsLastPage()}">
+                        <a th:href="@{'/profile/'+${question}(pageNum=${profilePageInfo.getPages()})}"  aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!--右侧-->
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="list-group" style="margin-top: 25px;">
+                <a th:href="@{/profile/question}" th:class="${selectName=='我的问题'}? 'active list-group-item':'list-group-item'">
+                    我的问题
+                </a>
+                <a href="#" th:class="${selectName=='通知消息'}? 'active list-group-item':'list-group-item' ">
+                    通知消息
+                    <span class="badge">14</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

@@ -20,7 +20,6 @@ import java.util.List;
 @Controller
 public class IndexController {
 
-    private final static  Integer navigatePages=3;
 
     @Autowired
     private UserMapper userMapper;
@@ -49,7 +48,7 @@ public class IndexController {
             }
           }
         }
-        List<PublishDTO> publishDTOS = publishService.selectPublishList(pageNum,pageSize,navigatePages);
+        List<PublishDTO> publishDTOS = publishService.selectPublishList(pageNum,pageSize);
         PageInfo<Publish> pageInfo = pageDTO.getPageInfo();
         model.addAttribute("pageInfo",pageInfo);
         int[] nums = pageInfo.getNavigatepageNums();

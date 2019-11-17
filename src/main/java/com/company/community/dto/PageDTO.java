@@ -9,4 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class PageDTO {
     private PageInfo<Publish> pageInfo;
+
+    private PageInfo<Publish> profilePageInfo;
 }
