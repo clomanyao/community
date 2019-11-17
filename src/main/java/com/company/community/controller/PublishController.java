@@ -18,7 +18,11 @@ public class PublishController {
     private PublishMapper publishMapper;
 
     @GetMapping("/publish")
-    public String publish() {
+    public String publish(HttpServletRequest request) {
+        User user = (User)request.getSession().getAttribute("user");
+        if(user==null){
+            return "redirect:/";
+        }
         return "publish";
     }
 

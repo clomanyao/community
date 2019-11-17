@@ -4,7 +4,6 @@ import com.company.community.dto.PageDTO;
 import com.company.community.dto.PublishDTO;
 import com.company.community.mapper.UserMapper;
 import com.company.community.models.Publish;
-import com.company.community.models.User;
 import com.company.community.service.PublishService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -36,18 +34,7 @@ public class IndexController {
                         @RequestParam(value = "pageNum",defaultValue ="1") Integer pageNum,
                         @RequestParam(value = "pageSize",defaultValue ="5") Integer pageSize
                         ){
-        Cookie[] cookies = request.getCookies();
-        if(cookies!=null&&cookies.length!=0){
-        for(Cookie cookie:cookies){
-            if(cookie.getName().equals("token")){
-                User user = userMapper.findUserByToken(cookie.getValue());
-                if(user!=null){
-                    request.getSession().setAttribute("user",user);
-                }
-                break;
-            }
-          }
-        }
+
         List<PublishDTO> publishDTOS = publishService.selectPublishList(pageNum,pageSize);
         PageInfo<Publish> pageInfo = pageDTO.getPageInfo();
         model.addAttribute("pageInfo",pageInfo);
