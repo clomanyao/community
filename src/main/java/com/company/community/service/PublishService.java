@@ -58,4 +58,15 @@ public class PublishService {
         pageDTO.setProfilePageInfo(profilePageInfo);
         return  publishList;
     }
+
+
+    public PublishDTO selectPublishById(Integer id){
+        Publish publish = publishMapper.selectPublishById(id);
+        PublishDTO publishDTO = new PublishDTO();
+        BeanUtils.copyProperties(publish,publishDTO);
+        User user = userMapper.selectByCreattorId(publish.getCreator());
+        publishDTO.setUser(user);
+        return publishDTO;
+    }
+
 }

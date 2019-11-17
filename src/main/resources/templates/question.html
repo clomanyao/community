@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${publishDTO.getTitle()}"></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body style="background-color: #efefef">
+<div th:replace="~{bar::copy}"></div>
+<div class="container-fluid" style="margin: 20px;background-color:white">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h3>[[${publishDTO.getTitle()}]]</h3>
+            <div class="media-body">
+                <span class="media-heading">
+                    作者 <span style="color: #155faa; ">[[${publishDTO.user.name}]]</span> |
+                    发布时间 <span th:text="${#dates.format(publishDTO.gmtCreate,'yyyy-MM-dd')}"></span> |
+                    阅读数 <span>[[${publishDTO.viewCount}]]</span>
+                </span>
+            </div>
+            <hr>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                [[${publishDTO.description}]]
+                <hr>
+            </div>
+           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <a th:href="@{/publish}"><span class="glyphicon glyphicon-edit" th:if="${session.user.name==publishDTO.user.name}">编辑</span></a>
+           </div>
+
+        </div>
+        <!--右侧-->
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>发起人</h4>
+                <div class="media" >
+                    <div class="media-left">
+                        <a th:href="${publishDTO.user.avatarUrl}">
+                            <img class="media-object img-thumbnail" style="width: 40px;height: 40px;"
+                                 th:src="${publishDTO.user.avatarUrl}">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h6 class="media-heading">
+                            <span style="color: #155faa;" th:text="${publishDTO.user.name}"></span>
+                        </h6>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>相关问题</h4>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

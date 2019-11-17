@@ -20,14 +20,14 @@ import java.util.UUID;
 public class AuthorizeController {
     @Autowired
     private GitHubPrivoder gitHubPrivoder;
+
     @Value("${github.accesstoken.client_id}")
     private String client_id;
     @Value("${github.accesstoken.client_secret}")
     private String client_secret;
     @Value("${github.accesstoken.redirect_uri}")
     private String redirect_uri;
-//    @Autowired
-//    private UserMapper userMapper;
+
     @Autowired
     private UserService userService;
 
@@ -50,14 +50,13 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(gitHubUser.getId()));  //强制转换为String类型
             String token = UUID.randomUUID().toString();
             user.setToken(token);
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
             user.setBio(gitHubUser.getBio());
             user.setAvatarUrl(gitHubUser.getAvatarUrl());
-            userService.insertUser(user);
+            //添加或者更新user
+            userService.insertOrUpdateUser(user);
             //添加token到cookie中,通过response响应到浏览器
             Cookie cookie = new Cookie("token", token);
-            cookie.setMaxAge(60*60*24*30);
+            cookie.setMaxAge(60*60);
             response.addCookie(cookie);
             //注意:和/不能有间隔
             return "redirect:/";

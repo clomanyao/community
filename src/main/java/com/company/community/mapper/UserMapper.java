@@ -5,6 +5,7 @@ import com.company.community.models.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface UserMapper {
@@ -16,4 +17,10 @@ public interface UserMapper {
 
     @Select("select * from user u where u.id=#{id}")
     User selectByCreattorId(Integer id);
+
+    @Select("select * from user u where u.account_id =#{accountId}")
+    User selectUserByaccountId(String accountId);
+
+    @Update("update user u set u.token=#{token},u.name=#{name},u.gmt_modified=#{gmtModified},u.bio=#{bio},u.avatar_url=#{avatarUrl} where u.account_id=#{accountId} ")
+    void updateUser(User user);
 }

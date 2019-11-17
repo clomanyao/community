@@ -11,10 +11,23 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Transactional //添加事务，保持原子性
-    public void insertUser(User user){
-        if(user!=null){
-        userMapper.insertUser(user);
-    }
+    @Transactional //添加事务
+    public void insertOrUpdateUser(User user){
+        User dbuser = userMapper.selectUserByaccountId(user.getAccountId());
+        if(dbuser!=null){
+            //更新
+            dbuser.setToken(user.getToken())
+                  .setName(user.getName())
+                  .setGmtModified(System.currentTimeMillis())
+                  .setBio(user.getBio())
+                  .setAvatarUrl(user.getAvatarUrl());
+            userMapper.updateUser(dbuser);
+        }else {
+            //插入
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+            userMapper.insertUser(user);
+        }
+
 }
 }
