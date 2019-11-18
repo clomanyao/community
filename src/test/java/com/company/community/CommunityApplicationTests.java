@@ -2,7 +2,7 @@ package com.company.community;
 
 
 import com.company.community.dto.PageDTO;
-import com.company.community.mapper.PublishMapper;
+import com.company.community.mapper.PublishMapperCustom;
 import com.company.community.models.Publish;
 import com.company.community.service.PublishService;
 import com.github.pagehelper.Page;
@@ -26,7 +26,7 @@ public class CommunityApplicationTests {
     private PublishService publishService;
 
     @Autowired
-    private PublishMapper publishMapper;
+    private PublishMapperCustom publishMapperCustom;
     @Test
     public void contextLoads() {
 
@@ -35,7 +35,7 @@ public class CommunityApplicationTests {
     @Test
     public void test(){
         Page<Object> page = PageHelper.startPage(4, 5);
-        List<Publish> publishes = publishMapper.selectPublishList();
+        List<Publish> publishes = publishMapperCustom.selectPublishList();
         System.out.println("多少页："+page.getPages());
        //代表每次显示多少页
         PageInfo<Publish> pageInfo = new PageInfo<>(publishes,3);

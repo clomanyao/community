@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.community.mapper.UserMapperCustom">
+
+    <select id="findUserByToken" resultType="com.company.community.models.User">
+         select * from user u where u.token=#{token}
+    </select>
+
+    <select id="selectByCreattorId" resultType="com.company.community.models.User">
+        select * from user u where u.id=#{id}
+    </select>
+
+    <select id="selectUserByaccountId" resultType="com.company.community.models.User">
+        select * from user u where u.account_id =#{accountId}
+    </select>
+
+    <update id="updateUser">
+        update user u set u.token=#{token},u.name=#{name},u.gmt_modified=#{gmtModified},u.bio=#{bio},u.avatar_url=#{avatarUrl} where u.account_id=#{accountId}
+    </update>
+
+</mapper>

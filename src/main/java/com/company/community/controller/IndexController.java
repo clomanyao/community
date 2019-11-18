@@ -2,7 +2,6 @@ package com.company.community.controller;
 
 import com.company.community.dto.PageDTO;
 import com.company.community.dto.PublishDTO;
-import com.company.community.mapper.UserMapper;
 import com.company.community.models.Publish;
 import com.company.community.service.PublishService;
 import com.github.pagehelper.PageInfo;
@@ -18,9 +17,6 @@ import java.util.List;
 @Controller
 public class IndexController {
 
-
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     private PublishService publishService;

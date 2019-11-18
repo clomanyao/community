@@ -1,26 +1,31 @@
 package com.company.community.mapper;
 
-
 import com.company.community.models.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.company.community.models.UserExample;
+import org.apache.ibatis.annotations.Param;
 
-@Mapper
+import java.util.List;
+
 public interface UserMapper {
-    @Insert("insert into user(name,account_id,token,gmt_create,gmt_modified,bio,avatar_url) values (#{name},#{accountId},#{token},#{gmtCreate},#{gmtModified},#{bio},#{avatarUrl})")
-    void insertUser(User user);
+    long countByExample(UserExample example);
 
-    @Select("select * from user u where u.token=#{token}")
-    User findUserByToken(String token);
+    int deleteByExample(UserExample example);
 
-    @Select("select * from user u where u.id=#{id}")
-    User selectByCreattorId(Integer id);
+    int deleteByPrimaryKey(Integer id);
 
-    @Select("select * from user u where u.account_id =#{accountId}")
-    User selectUserByaccountId(String accountId);
+    int insert(User record);
 
-    @Update("update user u set u.token=#{token},u.name=#{name},u.gmt_modified=#{gmtModified},u.bio=#{bio},u.avatar_url=#{avatarUrl} where u.account_id=#{accountId} ")
-    void updateUser(User user);
+    int insertSelective(User record);
+
+    List<User> selectByExample(UserExample example);
+
+    User selectByPrimaryKey(Integer id);
+
+    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
+
+    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+
+    int updateByPrimaryKeySelective(User record);
+
+    int updateByPrimaryKey(User record);
 }

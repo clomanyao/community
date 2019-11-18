@@ -7,4 +7,8 @@
 
 [MySQL菜鸟教程](https://www.runoob.com/mysql/mysql-index.html)
 
+```shell script
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+```
+
 

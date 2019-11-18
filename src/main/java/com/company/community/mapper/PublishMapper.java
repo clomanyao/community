@@ -1,29 +1,37 @@
 package com.company.community.mapper;
 
 import com.company.community.models.Publish;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.company.community.models.PublishExample;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-@Mapper
 public interface PublishMapper {
+    long countByExample(PublishExample example);
 
-    @Insert("insert into publish(title,description,tag,creator,gmt_create,gmt_modified) values(#{title},#{description},#{tag},#{creator},#{gmtCreate},#{gmtModified})")
-    void insertProblem(Publish publish);
+    int deleteByExample(PublishExample example);
 
-    @Select("select * from publish")
-    List<Publish> selectPublishList();
+    int deleteByPrimaryKey(Integer id);
 
-    @Select("select * from publish p where p.creator=#{createId}")
-    List<Publish> selectPublistByCreatorId(Integer createId);
+    int insert(Publish record);
 
-    @Select("select * from publish p where p.id=#{id}")
-    Publish selectPublishById(Integer id);
+    int insertSelective(Publish record);
 
-    @Update("update publish p set p.tag=#{tag},p.description=#{description},p.title=#{title},p.gmt_modified=#{gmtModified} where p.id =#{id}")
-    void updateQuestion(Publish publish);
+    List<Publish> selectByExampleWithBLOBs(PublishExample example);
 
+    List<Publish> selectByExample(PublishExample example);
+
+    Publish selectByPrimaryKey(Integer id);
+
+    int updateByExampleSelective(@Param("record") Publish record, @Param("example") PublishExample example);
+
+    int updateByExampleWithBLOBs(@Param("record") Publish record, @Param("example") PublishExample example);
+
+    int updateByExample(@Param("record") Publish record, @Param("example") PublishExample example);
+
+    int updateByPrimaryKeySelective(Publish record);
+
+    int updateByPrimaryKeyWithBLOBs(Publish record);
+
+    int updateByPrimaryKey(Publish record);
 }

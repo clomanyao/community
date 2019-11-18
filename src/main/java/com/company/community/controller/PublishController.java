@@ -25,7 +25,7 @@ public class PublishController {
 
     @GetMapping("/publish/{id}")
     public String editQuestion(@PathVariable("id") Integer id, Model model){
-        Publish publish = publishMapper.selectPublishById(id);
+        Publish publish = publishMapper.selectByPrimaryKey(id);
         model.addAttribute("publish",publish);
         return "publish";
     }

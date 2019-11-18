@@ -1,6 +1,6 @@
 package com.company.community.config.interceptors;
 
-import com.company.community.mapper.UserMapper;
+import com.company.community.mapper.UserMapperCustom;
 import com.company.community.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserMapperCustom userMapperCustom;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -23,7 +23,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if(cookies!=null&&cookies.length!=0){
             for(Cookie cookie:cookies){
                 if(cookie.getName().equals("token")){
-                    User user = userMapper.findUserByToken(cookie.getValue());
+                    User user = userMapperCustom.findUserByToken(cookie.getValue());
                     if(user!=null){
                         request.getSession().setAttribute("user",user);
                     }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.community.mapper.PublishMapperCustom">
+
+  <select id="selectPublishList" resultType="com.company.community.models.Publish">
+    select * from publish
+  </select>
+
+  <select id="selectPublistByCreatorId" resultType="com.company.community.models.Publish">
+    select * from publish p where p.creator=#{createId}
+  </select>
+
+  <update id="updateQuestion">
+    update publish p set p.tag=#{tag},p.description=#{description},p.title=#{title},p.gmt_modified=#{gmtModified} where p.id =#{id}
+  </update>
+</mapper>
