@@ -1,8 +1,10 @@
 package com.company.community.controller;
 
 import com.company.community.mapper.PublishMapper;
+import com.company.community.mapper.UserMapperCustom;
 import com.company.community.models.Publish;
 import com.company.community.models.User;
+import com.company.community.other.PublishMessage;
 import com.company.community.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,10 +25,25 @@ public class PublishController {
     @Autowired
     private PublishService publishService;
 
+    @Autowired
+    private UserMapperCustom userMapperCustom;
+
+    @Autowired
+    private PublishMessage publishMessage;
+
     @GetMapping("/publish/{id}")
-    public String editQuestion(@PathVariable("id") Integer id, Model model){
+    public String editQuestion(@PathVariable("id") Integer id, Model model, HttpServletRequest request){
+        //修复前端页面用户通过进入自己的编辑模式后，然后通过不正确的访问方式进入别的帖子进行修改
+        User user =(User) request.getSession().getAttribute("user");
+        User dbuser = userMapperCustom.selectUserByaccountId(user.getAccountId());
         Publish publish = publishMapper.selectByPrimaryKey(id);
-        model.addAttribute("publish",publish);
+        if(dbuser.getId().equals(publish.getCreator())){
+            publishMessage.setPublish(publish);
+            model.addAttribute("publish",publish);
+            return "publish";
+        }
+        model.addAttribute("publish",publishMessage.getPublish());
+        model.addAttribute("error","无权访问");
         return "publish";
     }
 
@@ -44,6 +61,7 @@ public class PublishController {
                               HttpServletRequest request,
                               @RequestParam(value = "id",required = false) Integer id
                               ){
+        //int a=id; 当url访问错误，不会因为浏览器上的url的的改变而传参改变
         model.addAttribute("publish",publish);
         User user = (User)request.getSession().getAttribute("user");
         if(user==null){

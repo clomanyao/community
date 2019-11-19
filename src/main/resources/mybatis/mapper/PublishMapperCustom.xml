@@ -3,7 +3,7 @@
 <mapper namespace="com.company.community.mapper.PublishMapperCustom">
 
   <select id="selectPublishList" resultType="com.company.community.models.Publish">
-    select * from publish
+    select * from publish order by id desc
   </select>
 
   <select id="selectPublistByCreatorId" resultType="com.company.community.models.Publish">

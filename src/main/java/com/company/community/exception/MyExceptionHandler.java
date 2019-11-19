@@ -1,4 +1,4 @@
 package com.company.community.exception;
 
-public class MyExceptionHandler {
+public class MyExceptionHandler extends RuntimeException {
 }

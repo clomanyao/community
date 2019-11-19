@@ -1,4 +1,9 @@
 package com.company.community.exception;
 
-public class ErrorExceptionHandler {
-}
+//@ControllerAdvice
+//public class ErrorExceptionHandler {
+//    @ExceptionHandler(MyExceptionHandler.class)
+//    public String exceptionhandler(){
+//
+//    }
+//}
