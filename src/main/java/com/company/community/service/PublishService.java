@@ -91,4 +91,8 @@ public class PublishService {
         }
     }
 
+    public void incView(Integer id){
+        publishMapperCustom.incView(id);
+    }
+
 }

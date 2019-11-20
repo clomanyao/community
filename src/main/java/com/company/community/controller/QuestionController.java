@@ -16,6 +16,7 @@ public class QuestionController {
     @GetMapping("/question/{id}")
     public String question(@PathVariable("id") Integer id, Model model) {
         if (id != null) {
+            publishService.incView(id);
             PublishDTO publishDTO = publishService.selectPublishById(id);
             model.addAttribute("publishDTO", publishDTO);
         }

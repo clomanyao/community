@@ -11,4 +11,6 @@ public interface PublishMapperCustom {
     List<Publish> selectPublistByCreatorId(Integer createId);
 
     void updateQuestion(Publish publish);
+
+    void incView(Integer id);
 }

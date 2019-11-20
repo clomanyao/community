@@ -13,4 +13,8 @@
   <update id="updateQuestion">
     update publish p set p.tag=#{tag},p.description=#{description},p.title=#{title},p.gmt_modified=#{gmtModified} where p.id =#{id}
   </update>
+  
+  <update id="incView">
+    update publish set view_count=view_count+1 where id=#{id}
+  </update>
 </mapper>
