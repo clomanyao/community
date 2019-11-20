@@ -1,5 +1,7 @@
 package com.company.community.controller;
 
+import com.company.community.exception.ExceptionEnum;
+import com.company.community.exception.MyException;
 import com.company.community.mapper.PublishMapper;
 import com.company.community.mapper.UserMapperCustom;
 import com.company.community.models.Publish;
@@ -35,8 +37,14 @@ public class PublishController {
     public String editQuestion(@PathVariable("id") Integer id, Model model, HttpServletRequest request){
         //修复前端页面用户通过进入自己的编辑模式后，然后通过不正确的访问方式进入别的帖子进行修改
         User user =(User) request.getSession().getAttribute("user");
+        if(user==null){
+            throw new MyException(ExceptionEnum.USERISNULL);
+        }
         User dbuser = userMapperCustom.selectUserByaccountId(user.getAccountId());
         Publish publish = publishMapper.selectByPrimaryKey(id);
+        if(publish==null){
+            throw new MyException(ExceptionEnum.QEUSTION);
+        }
         if(dbuser.getId().equals(publish.getCreator())){
             publishMessage.setPublish(publish);
             model.addAttribute("publish",publish);

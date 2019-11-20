@@ -2,6 +2,8 @@ package com.company.community.service;
 
 import com.company.community.dto.PageDTO;
 import com.company.community.dto.PublishDTO;
+import com.company.community.exception.ExceptionEnum;
+import com.company.community.exception.MyException;
 import com.company.community.mapper.PublishMapper;
 import com.company.community.mapper.PublishMapperCustom;
 import com.company.community.mapper.UserMapperCustom;
@@ -66,6 +68,9 @@ public class PublishService {
 
     public PublishDTO selectPublishById(Integer id){
         Publish publish = publishMapper.selectByPrimaryKey(id);
+        if(publish==null){
+            throw new MyException(ExceptionEnum.QEUSTION);
+        }
         PublishDTO publishDTO = new PublishDTO();
         BeanUtils.copyProperties(publish,publishDTO);
         User user = userMapperCustom.selectByCreattorId(publish.getCreator());
