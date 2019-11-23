@@ -30,7 +30,7 @@ public class MyCustomizeErrorController extends AbstractErrorController {
             model.addAttribute("message","访问路径不存在，换一个是试试");
         }
         if(status.is5xxServerError()){
-            model.addAttribute("message","操作错误!");
+            model.addAttribute("message","系统错误!");
         }
         return new ModelAndView("error");
     }

@@ -6,8 +6,10 @@
     <title th:text="${publishDTO.getTitle()}"></title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
     <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/comment.js" type="application/javascript"></script>
 </head>
 <body style="background-color: #efefef">
 <div th:replace="~{bar::copy}"></div>
@@ -27,18 +29,72 @@
                 [[${publishDTO.description}]]
                 <hr>
             </div>
-           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-               <div th:if="${session.user!=null}">
-                   <a th:href="@{'/publish/'+${publishDTO.id}}"><span class="glyphicon glyphicon-edit" th:if="${session.user.name==publishDTO.user.name}">编辑</span></a>
-               </div>
-           </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div th:if="${session.user!=null}">
+                    <a th:href="@{'/publish/'+${publishDTO.id}}"><span class="glyphicon glyphicon-edit"
+                                                                       th:if="${session.user.name==publishDTO.user.name}">编辑</span></a>
+                    <br><br>
+                </div>
+                <!--评论列表展示-->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <span class="commentcount">[[${publishDTO.commentCount}]] 个回复</span>
+                    <hr>
+                    <div th:each="commentDTO:${commentDTOS}">
+                        <div class="media commentuser">
+                            <div class="media-left">
+                                <a th:href="${commentDTO.user.avatarUrl}" class="commentimg">
+                                    <img class="media-object img-thumbnail" style="width: 40px;height: 40px;"
+                                         th:src="${commentDTO.user.avatarUrl}">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h6 class="commentname">
+                                    <span style="color: #155faa;" th:text="${commentDTO.user.name}"></span>
+                                </h6>
+                                <span th:text="${commentDTO.context}"></span>
+                                <div th:if="${session.user!=null}" class="comentlike">
+                                    <span class="glyphicon glyphicon-thumbs-up icon"></span>
+                                    <span class="glyphicon glyphicon-comment icon"></span>
+                                    <span class="pull-right commenttime" th:text="${#dates.format(commentDTO.gmtCreate,'yyyy-MM-dd')}"></span><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${session.user==null}" style="margin-left: 50%">
+                    先登录后评论 <a href="#" onclick="login()">去登陆</a>
+                </div>
+                 <!-- 用户图像-->
+                <div th:if="${session.user!=null}" id="comment_section" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <hr>
+                    <div class="media">
+                        <div class="media-left">
+                            <a th:href="${session.user.avatarUrl}">
+                                <img class="media-object img-thumbnail" style="width: 40px;height: 40px;"
+                                     th:src="${session.user.avatarUrl}">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h6 class="media-heading" style="padding-top: 10px;">
+                                <span style="color: #155faa;" th:text="${session.user.name}"></span>
+                            </h6>
+                        </div>
+                    </div>
+                    <input type="hidden" id="question_id" th:value="${publishDTO.id}">
+                    <textarea class="form-control" rows="5" style="margin-top: 15px;"
+                              id="comment_context"></textarea><br>
+                    <button type="button" style="float: right;margin-bottom: 15px" class="btn btn-primary"
+                            onclick="postcomment()">回复
+                    </button>
+                </div>
+            </div>
 
         </div>
         <!--右侧-->
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>发起人</h4>
-                <div class="media" >
+                <div class="media">
                     <div class="media-left">
                         <a th:href="${publishDTO.user.avatarUrl}">
                             <img class="media-object img-thumbnail" style="width: 40px;height: 40px;"
@@ -46,7 +102,7 @@
                         </a>
                     </div>
                     <div class="media-body">
-                        <h6 class="media-heading">
+                        <h6 class="media-heading" style="padding-top: 10px;">
                             <span style="color: #155faa;" th:text="${publishDTO.user.name}"></span>
                         </h6>
                     </div>

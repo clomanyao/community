@@ -13,4 +13,6 @@ public interface PublishMapperCustom {
     void updateQuestion(Publish publish);
 
     void incView(Integer id);
+
+    void inComment(Integer id);
 }

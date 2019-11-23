@@ -3,7 +3,9 @@ package com.company.community.exception;
 public enum ExceptionEnum {
     USERISNULL("没有登陆,请登陆"),
 
-    QEUSTION("查找的问题不存在，换一个吧！");
+    QEUSTION("查找的问题不存在，换一个吧！"),
+
+    COMQUESTION("你回复的问题不存在!");
 
     public String getMessgae() {
         return messgae;

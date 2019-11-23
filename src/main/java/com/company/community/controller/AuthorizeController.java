@@ -57,7 +57,7 @@ public class AuthorizeController {
             userService.insertOrUpdateUser(user);
             //添加token到cookie中,通过response响应到浏览器
             Cookie cookie = new Cookie("token", token);
-            cookie.setMaxAge(60*60);
+            cookie.setMaxAge(60*60*4);
             response.addCookie(cookie);
             //注意:和/不能有间隔
             return "redirect:/";

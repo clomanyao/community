@@ -1,13 +1,10 @@
 package com.company.community;
 
 
-import com.company.community.dto.PageDTO;
-import com.company.community.mapper.PublishMapperCustom;
-import com.company.community.models.Publish;
-import com.company.community.service.PublishService;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.company.community.enums.CommentEnumType;
+import com.company.community.mapper.CommentMapper;
+import com.company.community.models.Comment;
+import com.company.community.models.CommentExample;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,33 +18,17 @@ import java.util.List;
 public class CommunityApplicationTests {
 
     @Autowired
-    private PageDTO pageDTO;
-    @Autowired
-    private PublishService publishService;
+    private CommentMapper commentMapper;
 
-    @Autowired
-    private PublishMapperCustom publishMapperCustom;
     @Test
     public void contextLoads() {
-
+        CommentExample commentExample = new CommentExample();
+        commentExample.createCriteria().andParentIdEqualTo(22).andTypeEqualTo(CommentEnumType.QUESTION.getType());
+        List<Comment> comments = commentMapper.selectByExampleWithBLOBs(commentExample);
+        for (Comment comment : comments) {
+            System.out.println(comment);
+        }
     }
 
-    @Test
-    public void test(){
-        Page<Object> page = PageHelper.startPage(4, 5);
-        List<Publish> publishes = publishMapperCustom.selectPublishList();
-        System.out.println("多少页："+page.getPages());
-       //代表每次显示多少页
-        PageInfo<Publish> pageInfo = new PageInfo<>(publishes,3);
-
-        System.out.println("多少页："+pageInfo.getPages());
-        System.out.println("当前所在也面"+pageInfo.getPageNum());
-//        System.out.println("连续显示的页面：");
-//        int[] nums = pageInfo.getNavigatepageNums();
-//        for (int num : nums) {
-//            System.out.println(num);
-//        }
-
-    }
 }
 

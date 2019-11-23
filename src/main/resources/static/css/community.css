@@ -1,0 +1,29 @@
+.commentcount{
+    font-size: 20px;
+    color: #69f;
+}
+.commentuser{
+    border-bottom: solid #9966 1px;
+}
+.commentimg{
+    margin: 5px;
+}
+.commentname{
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+.commenttime{
+    padding-top: 20px;
+}
+.comentlike{
+    color: #999;
+    margin-top: 5px;
+}
+.icon{
+    font-size: 18px;
+    margin-right: 6px;
+    cursor: pointer;
+}
+.icon:hover{
+    color: #2b669a;
+}

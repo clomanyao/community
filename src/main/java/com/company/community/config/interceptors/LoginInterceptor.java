@@ -26,7 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                     User user = userMapperCustom.findUserByToken(cookie.getValue());
                     if(user!=null){
                         request.getSession().setAttribute("user",user);
-                    }
+                }
                     break;
                 }
             }

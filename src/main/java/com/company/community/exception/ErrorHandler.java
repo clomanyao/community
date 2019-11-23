@@ -14,7 +14,7 @@ public class ErrorHandler {
             model.addAttribute("message",e.getMessage());
         }
         else{
-            model.addAttribute("message","服务找不到！");
+            model.addAttribute("message","服务器冒烟了！");
         }
         ModelAndView modelAndView = new ModelAndView("error");
         return modelAndView;

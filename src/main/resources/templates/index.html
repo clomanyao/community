@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script type="application/javascript">
+        window.onload = function () {
+            var close = window.localStorage.getItem("close");
+            if (close == "true") {
+                window.localStorage.removeItem("close");
+                window.parent.opener.location.reload();  //刷新父页面
+                window.close();  //关闭本页面
+            }
+        }
+    </script>
 </head>
 <body style="background-color: #efefef">
 <div th:replace="~{bar::copy}"></div>
@@ -27,7 +37,8 @@
                     <h4 class="media-heading">
                         <a th:href="@{'/question/'+${publishDTOS.id}}" th:text="${publishDTOS.title}"></a>
                     </h4>
-                    <span style="font-size: 12px;font-weight: normal;color:#999;">回复了问题 • [[${publishDTOS.likeCount}]] 人关注 • [[${publishDTOS.commentCount}]] 个回复 • [[${publishDTOS.viewCount}]] 次浏览 • <span th:text="${#dates.format(publishDTOS.gmtCreate,'yyyy-MM-dd hh:mm')}"></span>
+                    <span style="font-size: 12px;font-weight: normal;color:#999;">回复了问题 • [[${publishDTOS.likeCount}]] 人关注 • [[${publishDTOS.commentCount}]] 个回复 • [[${publishDTOS.viewCount}]] 次浏览 • <span
+                            th:text="${#dates.format(publishDTOS.gmtCreate,'yyyy-MM-dd hh:mm')}"></span>
                     </span>
                 </div>
                 <hr style="margin-top: 10px;margin-bottom: 5px;">
@@ -43,7 +54,7 @@
                         <a th:href="@{/(pageNum=${nums})}">[[${nums}]]</a>
                     </li>
                     <li th:if="${!pageInfo.isIsLastPage()}">
-                        <a th:href="@{/(pageNum=${pageInfo.getPages()})}"  aria-label="Next">
+                        <a th:href="@{/(pageNum=${pageInfo.getPages()})}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

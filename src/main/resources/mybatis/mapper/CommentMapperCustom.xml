@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.community.mapper.CommentMapperCustom">
+
+  <insert id="insert" parameterType="com.company.community.models.Comment" useGeneratedKeys="true" keyProperty="id">
+    insert into comment (id, parent_id, type,
+      commentator, gmt_create, gmt_modified,
+      like_count, context)
+    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER},
+      #{commentator,jdbcType=INTEGER}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT},
+      #{likeCount,jdbcType=INTEGER}, #{context,jdbcType=LONGVARCHAR})
+  </insert>
+
+</mapper>
