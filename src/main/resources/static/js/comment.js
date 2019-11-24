@@ -1,7 +1,9 @@
 function postcomment() {
     var questionId = $("#question_id").val();
     var context = $("#comment_context").val();
-
+    if(context.length==0||context==null){
+        alert("评论不能为空");
+    }
     $.ajax({
         url: "/comment",
         type: "post",

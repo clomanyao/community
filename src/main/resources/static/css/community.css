@@ -25,5 +25,17 @@
     cursor: pointer;
 }
 .icon:hover{
-    color: #2b669a;
+    color: #2aabd2;
+}
+.hrcss{
+    margin-top: 1px;
+}
+.h4css{
+    margin-top: 30px;
+}
+.questiontitle{
+    margin-top: 30px;
+}
+.publish_user{
+    margin-top: 50px;
 }

@@ -7,7 +7,9 @@
 
 [MySQL菜鸟教程](https://www.runoob.com/mysql/mysql-index.html)
 
-```shell script
+
+## mybatis逆向工程的脚本命令
+```shell 
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 ```
 

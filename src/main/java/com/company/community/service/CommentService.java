@@ -59,6 +59,7 @@ public class CommentService {
 
     public List<CommentDTO> selectByparentIdAndTypeOne(Integer id) {
         CommentExample commentExample = new CommentExample();
+        commentExample.setOrderByClause("gmt_create desc");  //评论信息倒序排列
         commentExample.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(CommentEnumType.QUESTION.getType());
         //selectByExampleWithBLOBs方法会对数据库text类型进行查询
         List<Comment> comments = commentMapper.selectByExampleWithBLOBs(commentExample);

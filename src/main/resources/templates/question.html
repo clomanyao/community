@@ -16,7 +16,7 @@
 <div class="container-fluid" style="margin: 20px;background-color:white">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-            <h3>[[${publishDTO.getTitle()}]]</h3>
+            <h3 class="questiontitle">[[${publishDTO.getTitle()}]]</h3>
             <div class="media-body">
                 <span class="media-heading">
                     作者 <span style="color: #155faa; ">[[${publishDTO.user.name}]]</span> |
@@ -55,8 +55,8 @@
                                 <div th:if="${session.user!=null}" class="comentlike">
                                     <span class="glyphicon glyphicon-thumbs-up icon"></span>
                                     <span class="glyphicon glyphicon-comment icon"></span>
-                                    <span class="pull-right commenttime" th:text="${#dates.format(commentDTO.gmtCreate,'yyyy-MM-dd')}"></span><br>
                                 </div>
+                                <span th:class="${session.user}?'pull-right':'pull-right commenttime'" th:text="${#dates.format(commentDTO.gmtCreate,'yyyy-MM-dd')}"></span><br>
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,8 @@
                 </div>
                  <!-- 用户图像-->
                 <div th:if="${session.user!=null}" id="comment_section" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <hr>
+                    <h4 class="h4css">评论回复</h4>
+                    <hr class="hrcss">
                     <div class="media">
                         <div class="media-left">
                             <a th:href="${session.user.avatarUrl}">
@@ -93,7 +94,7 @@
         <!--右侧-->
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h4>发起人</h4>
+                <h4 class="publish_user">发起人</h4>
                 <div class="media">
                     <div class="media-left">
                         <a th:href="${publishDTO.user.avatarUrl}">
