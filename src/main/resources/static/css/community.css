@@ -14,6 +14,7 @@
 }
 .commenttime{
     padding-top: 20px;
+    color: #0f0f0f;
 }
 .comentlike{
     color: #999;
@@ -23,6 +24,9 @@
     font-size: 18px;
     margin-right: 6px;
     cursor: pointer;
+}
+.active{
+    color: #2aabd2;
 }
 .icon:hover{
     color: #2aabd2;
@@ -38,4 +42,22 @@
 }
 .publish_user{
     margin-top: 50px;
+}
+.login{
+    margin-left: 50%;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+.inputtext{
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+.bordercss{
+    border: solid #9966 1px;
+    margin-bottom: 25px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+.secondcomment{
+    margin-bottom: 15px;
 }

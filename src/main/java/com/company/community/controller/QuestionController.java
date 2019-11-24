@@ -2,6 +2,7 @@ package com.company.community.controller;
 
 import com.company.community.dto.CommentDTO;
 import com.company.community.dto.PublishDTO;
+import com.company.community.enums.CommentEnumType;
 import com.company.community.service.CommentService;
 import com.company.community.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class QuestionController {
             publishService.incView(id);
             PublishDTO publishDTO = publishService.selectPublishById(id);
             model.addAttribute("publishDTO", publishDTO);
-            List<CommentDTO> commentDTOS = commentService.selectByparentIdAndTypeOne(id);
+            List<CommentDTO> commentDTOS = commentService.selectByparentIdAndType(id, CommentEnumType.QUESTION.getType());
             if(commentDTOS!=null){
                 model.addAttribute("commentDTOS",commentDTOS);
             }

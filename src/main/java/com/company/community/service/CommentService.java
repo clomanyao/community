@@ -1,7 +1,6 @@
 package com.company.community.service;
 
 import com.company.community.dto.CommentDTO;
-import com.company.community.enums.CommentEnumType;
 import com.company.community.exception.ExceptionEnum;
 import com.company.community.exception.MyException;
 import com.company.community.mapper.*;
@@ -32,11 +31,11 @@ public class CommentService {
 
     @Transactional
     public void insertComment(Comment comment) {
-        Publish publish = publishMapper.selectByPrimaryKey(comment.getParentId());
-        if (publish == null) {
-            throw new MyException(ExceptionEnum.COMQUESTION);
-        }
         if (comment.getType() == 1) {
+            Publish publish = publishMapper.selectByPrimaryKey(comment.getParentId());
+            if (publish == null) {
+                throw new MyException(ExceptionEnum.COMQUESTION);
+            }
             //回复问题
             comment.setGmtCreate(System.currentTimeMillis());
             comment.setGmtModified(comment.getGmtCreate());
@@ -52,21 +51,20 @@ public class CommentService {
                 comment.setGmtCreate(System.currentTimeMillis());
                 comment.setGmtModified(comment.getGmtCreate());
                 commentMapper.insert(comment);
-                //更新评论操作
             }
         }
     }
 
-    public List<CommentDTO> selectByparentIdAndTypeOne(Integer id) {
+    public List<CommentDTO> selectByparentIdAndType(Integer id,Integer type) {
         CommentExample commentExample = new CommentExample();
         commentExample.setOrderByClause("gmt_create desc");  //评论信息倒序排列
-        commentExample.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(CommentEnumType.QUESTION.getType());
+        commentExample.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(type);
         //selectByExampleWithBLOBs方法会对数据库text类型进行查询
         List<Comment> comments = commentMapper.selectByExampleWithBLOBs(commentExample);
         if(comments==null&&comments.size()==0){
             return null;
         }
-        //本初代码逻辑太罗嗦，以后会用java 8的lamba和steam知识进行代码优化
+        //本处代码逻辑太罗嗦，以后会用java 8的lamba和steam知识进行代码优化
         List<CommentDTO> commentDTOArrayList = new ArrayList<CommentDTO>();
         for (Comment comment : comments) {
             User user = userMapper.selectByPrimaryKey(comment.getCommentator());
