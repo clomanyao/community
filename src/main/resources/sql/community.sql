@@ -19,5 +19,6 @@ commentator int(11),
 gmt_create BIGINT,
 gmt_modified BIGINT,
 like_count int(11),
-context LONGTEXT
+context LONGTEXT,
+comment_count int(11) DEFAULT 0
 )

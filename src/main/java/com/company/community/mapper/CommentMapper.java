@@ -2,9 +2,8 @@ package com.company.community.mapper;
 
 import com.company.community.models.Comment;
 import com.company.community.models.CommentExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface CommentMapper {
     long countByExample(CommentExample example);

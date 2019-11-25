@@ -11,4 +11,8 @@
       #{likeCount,jdbcType=INTEGER}, #{context,jdbcType=LONGVARCHAR})
   </insert>
 
+    <update id="updateCommentCount">
+        update comment set comment_count=comment_count+1 where id =#{id}
+    </update>
+
 </mapper>

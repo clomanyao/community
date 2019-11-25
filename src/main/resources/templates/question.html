@@ -56,33 +56,15 @@
                                 <div th:if="${session.user!=null}" class="comentlike">
                                     <span class="glyphicon glyphicon-thumbs-up icon"></span>
                                     <span class="glyphicon glyphicon-comment icon" th:id="${commentDTO.id}"
-                                          th:data-id="${commentDTO.id}" onclick="collapseComment(this)"></span>
+                                          th:data-id="${commentDTO.id}" onclick="collapseComment(this)" th:text="${commentDTO.commentCount!=null?commentDTO.commentCount:'0'}">
+                                    </span>
                                     <span class="pull-right commenttime"
                                           th:text="${#dates.format(commentDTO.gmtCreate,'yyyy-MM-dd')}"></span><br>
                                 </div>
                                 <!--二级评论-->
                                 <div th:if="${session.user!=null}" class="collapse" th:id="${'comment'+commentDTO.id}">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bordercss" th:id="${'twolevel'+commentDTO.id}">
-                                        <!--   <div th:each="commentDTO:${commentDTOS}">
-                                               <div class="media commentuser">
-                                                   <div class="media-left">
-                                                       <a th:href="${commentDTO.user.avatarUrl}" class="commentimg">
-                                                           <img class="media-object img-thumbnail imgcss"
-                                                                th:src="${commentDTO.user.avatarUrl}">
-                                                       </a>
-                                                   </div>
-                                                   <div class="media-body">
-                                                       <h6 class="commentname">
-                                                           <span class="namecss"
-                                                                 th:text="${commentDTO.user.name}"></span>
-                                                       </h6>
-                                                       <span th:text="${commentDTO.context}"></span>
-
-                                                       <span class="pull-right commenttime"
-                                                             th:text="${#dates.format(commentDTO.gmtCreate,'yyyy-MM-dd')}"></span><br>
-                                                   </div>
-                                               </div>
-                                           </div>-->
+                                        <!-- 二级评论展示追加-->
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <input type="text" class="form-control inputtext" placeholder="评论点什么吧..."
                                                    th:id="${'second'+commentDTO.id}">

@@ -15,6 +15,8 @@ public class Comment {
 
     private Integer likeCount;
 
+    private Integer commentCount;
+
     private String context;
 
     public Integer getId() {
@@ -71,6 +73,14 @@ public class Comment {
 
     public void setLikeCount(Integer likeCount) {
         this.likeCount = likeCount;
+    }
+
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
     }
 
     public String getContext() {

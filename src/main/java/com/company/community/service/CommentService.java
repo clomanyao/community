@@ -51,6 +51,7 @@ public class CommentService {
                 comment.setGmtCreate(System.currentTimeMillis());
                 comment.setGmtModified(comment.getGmtCreate());
                 commentMapper.insert(comment);
+                commentMapperCustom.updateCommentCount(comment.getParentId());
             }
         }
     }
