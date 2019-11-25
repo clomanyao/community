@@ -10,6 +10,7 @@
     <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/comment.js" type="application/javascript"></script>
+    <script src="/js/moment.js" type="application/javascript"></script>
 </head>
 <body style="background-color: #efefef">
 <div th:replace="~{bar::copy}"></div>
@@ -61,31 +62,32 @@
                                 </div>
                                 <!--二级评论-->
                                 <div th:if="${session.user!=null}" class="collapse" th:id="${'comment'+commentDTO.id}">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bordercss">
-                                        <div th:each="commentDTO:${commentDTOS}">
-                                            <div class="media commentuser">
-                                                <div class="media-left">
-                                                    <a th:href="${commentDTO.user.avatarUrl}" class="commentimg">
-                                                        <img class="media-object img-thumbnail"
-                                                             style="width: 40px;height: 40px;"
-                                                             th:src="${commentDTO.user.avatarUrl}">
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6 class="commentname">
-                                                        <span style="color: #155faa;"
-                                                              th:text="${commentDTO.user.name}"></span>
-                                                    </h6>
-                                                    <span th:text="${commentDTO.context}"></span>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bordercss" th:id="${'twolevel'+commentDTO.id}">
+                                        <!--   <div th:each="commentDTO:${commentDTOS}">
+                                               <div class="media commentuser">
+                                                   <div class="media-left">
+                                                       <a th:href="${commentDTO.user.avatarUrl}" class="commentimg">
+                                                           <img class="media-object img-thumbnail imgcss"
+                                                                th:src="${commentDTO.user.avatarUrl}">
+                                                       </a>
+                                                   </div>
+                                                   <div class="media-body">
+                                                       <h6 class="commentname">
+                                                           <span class="namecss"
+                                                                 th:text="${commentDTO.user.name}"></span>
+                                                       </h6>
+                                                       <span th:text="${commentDTO.context}"></span>
 
-                                                    <span th:class="${session.user}?'pull-right':'pull-right commenttime'"
-                                                          th:text="${#dates.format(commentDTO.gmtCreate,'yyyy-MM-dd')}"></span><br>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                       <span class="pull-right commenttime"
+                                                             th:text="${#dates.format(commentDTO.gmtCreate,'yyyy-MM-dd')}"></span><br>
+                                                   </div>
+                                               </div>
+                                           </div>-->
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <input type="text" class="form-control inputtext" placeholder="评论点什么吧..." th:id="${'second'+commentDTO.id}">
-                                            <button type="button" class="btn btn-info pull-right secondcomment" th:data-second="${commentDTO.id}" onclick="secondcommment(this)">评论
+                                            <input type="text" class="form-control inputtext" placeholder="评论点什么吧..."
+                                                   th:id="${'second'+commentDTO.id}">
+                                            <button type="button" class="btn btn-info pull-right secondcomment"
+                                                    th:data-second="${commentDTO.id}" onclick="secondcommment(this)">评论
                                             </button>
                                         </div>
                                     </div>
