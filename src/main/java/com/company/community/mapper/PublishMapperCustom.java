@@ -15,4 +15,6 @@ public interface PublishMapperCustom {
     void incView(Integer id);
 
     void inComment(Integer id);
+
+    List<Publish> selectPublishByTags(Publish publish);
 }

@@ -46,6 +46,12 @@
 }
 .questiontitle{
     margin-top: 30px;
+    margin-left: 15px;
+}
+.media-heading2{
+    margin-top: 0;
+    margin-bottom: 5px;
+    margin-left: 15px;
 }
 .publish_user{
     margin-top: 50px;
@@ -67,4 +73,23 @@
 }
 .secondcomment{
     margin-bottom: 15px;
+}
+.tagcss{
+    font-size: 12px;
+    margin-left: 5px;
+}
+.edit{
+    margin-left: 15px;
+}
+.ulrelatedquestion{
+    padding-left: 0px;
+}
+.relatedquestion{
+    font-size: 17px;
+    list-style: none;
+}
+.relatedquestionlink{
+}
+.relatedquestionlink:hover{
+    color: #5e5e5e;
 }

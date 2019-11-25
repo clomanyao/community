@@ -21,4 +21,8 @@
   <update id="inComment">
     update publish set comment_count=comment_count+1 where id=#{id}
   </update>
+
+  <select id="selectPublishByTags" resultType="com.company.community.models.Publish">
+    select * from publish p where p.id!=#{id} and p.tag regexp #{tag}
+  </select>
 </mapper>

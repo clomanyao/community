@@ -3,6 +3,7 @@ package com.company.community.controller;
 import com.company.community.dto.CommentDTO;
 import com.company.community.dto.PublishDTO;
 import com.company.community.enums.CommentEnumType;
+import com.company.community.models.Publish;
 import com.company.community.service.CommentService;
 import com.company.community.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,12 @@ public class QuestionController {
             PublishDTO publishDTO = publishService.selectPublishById(id);
             model.addAttribute("publishDTO", publishDTO);
             List<CommentDTO> commentDTOS = commentService.selectByparentIdAndType(id, CommentEnumType.QUESTION.getType());
-            if(commentDTOS!=null){
-                model.addAttribute("commentDTOS",commentDTOS);
+            if (commentDTOS != null) {
+                model.addAttribute("commentDTOS", commentDTOS);
+            }
+            List<Publish> publishList = publishService.selectPublishByTags(publishDTO);
+            if(publishList!=null){
+                model.addAttribute("publishList", publishList);
             }
         }
         return "question";
