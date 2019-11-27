@@ -7,6 +7,7 @@ import com.company.community.mapper.UserMapperCustom;
 import com.company.community.models.Publish;
 import com.company.community.models.User;
 import com.company.community.other.PublishMessage;
+import com.company.community.privoder.TagPrivoder;
 import com.company.community.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,7 @@ public class PublishController {
     @Autowired
     private PublishMessage publishMessage;
 
+
     @GetMapping("/publish/{id}")
     public String editQuestion(@PathVariable("id") Integer id, Model model, HttpServletRequest request){
         //修复前端页面用户通过进入自己的编辑模式后，然后通过不正确的访问方式进入别的帖子进行修改
@@ -47,6 +49,7 @@ public class PublishController {
         }
         if(dbuser.getId().equals(publish.getCreator())){
             publishMessage.setPublish(publish);
+            model.addAttribute("managerDTOS",TagPrivoder.getTag());
             model.addAttribute("publish",publish);
             return "publish";
         }
@@ -56,11 +59,12 @@ public class PublishController {
     }
 
     @GetMapping("/publish")
-    public String publish(HttpServletRequest request) {
+    public String publish(HttpServletRequest request,Model model) {
         User user = (User)request.getSession().getAttribute("user");
         if(user==null){
             return "redirect:/";
         }
+        model.addAttribute("managerDTOS",TagPrivoder.getTag());
         return "publish";
     }
 
@@ -75,16 +79,22 @@ public class PublishController {
         if(user==null){
             return "redirect:/";
         }
+        model.addAttribute("managerDTOS",TagPrivoder.getTag());
         if(publish.getTitle().trim().equals("")){
             model.addAttribute("error","问题标题不能为为空！");
+            return "publish";
+        }
+        if(publish.getDescription().trim().equals("")){
+            model.addAttribute("error","问题描述不能为空 ！");
             return "publish";
         }
         if(publish.getTag().trim().equals("")){
             model.addAttribute("error","标签不能为空！");
             return "publish";
         }
-        if(publish.getDescription().trim().equals("")){
-            model.addAttribute("error","问题描述不能为空 ！");
+        String tags = TagPrivoder.conditionalTags(publish.getTag().trim());
+        if(tags!=null){
+            model.addAttribute("error","非法标签"+tags);
             return "publish";
         }
         publish.setCreator(user.getId());

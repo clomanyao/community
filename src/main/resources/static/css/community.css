@@ -76,7 +76,8 @@
 }
 .tagcss{
     font-size: 12px;
-    margin-left: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 .edit{
     margin-left: 15px;
@@ -92,4 +93,16 @@
 }
 .relatedquestionlink:hover{
     color: #5e5e5e;
+}
+.hidetag{
+    display: none;
+}
+.showtag{
+    display: block;
+}
+.showtagcss{
+    margin-left: 5px;
+}
+.label{
+    white-space: normal;
 }

@@ -149,3 +149,37 @@ function collapseComment(e) {
         }
     }
 }
+
+
+/*
+* 标签的提交
+* */
+function submitTag(value) {
+    var previous = $("#tag").val();
+    //如果==-1代表没有添加value标签
+    if(previous.indexOf(value)==-1){
+        if(previous){
+            //如果有添加过标签就直接把前面的标签加上后面的标签
+            $("#tag").val(previous+','+value);
+        }else{
+            //反之...
+            $("#tag").val(value);
+        }
+    }
+}
+
+/*
+* 点击文本框展示标签
+* */
+function showTag() {
+    var tag = $("#selectTag");
+    var tagclass = tag.attr("class");
+    if(tagclass=="hidetag"){
+        tag.removeClass("hidetag");
+        tag.addClass("showtag");
+    }else {
+        tag.removeClass("showtag")
+        tag.addClass("hidetag");
+    }
+
+}

@@ -7,7 +7,7 @@
   </select>
 
   <select id="selectPublistByCreatorId" resultType="com.company.community.models.Publish">
-    select * from publish p where p.creator=#{createId}
+    select * from publish p where p.creator=#{createId} order by p.id desc
   </select>
 
   <update id="updateQuestion">
