@@ -8,6 +8,7 @@
     <result column="outer_id" jdbcType="INTEGER" property="outerId" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="BIGINT" property="gmtModified" />
     <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, notifier, receiver, outer_id, type, gmt_create, status
+    id, notifier, receiver, outer_id, type, gmt_create, gmt_modified, status
   </sql>
   <select id="selectByExample" parameterType="com.company.community.models.NotificationExample" resultMap="BaseResultMap">
     select
@@ -104,10 +105,10 @@
   <insert id="insert" parameterType="com.company.community.models.Notification">
     insert into notification (id, notifier, receiver, 
       outer_id, type, gmt_create, 
-      status)
+      gmt_modified, status)
     values (#{id,jdbcType=INTEGER}, #{notifier,jdbcType=INTEGER}, #{receiver,jdbcType=INTEGER}, 
       #{outerId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{gmtCreate,jdbcType=BIGINT}, 
-      #{status,jdbcType=INTEGER})
+      #{gmtModified,jdbcType=BIGINT}, #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.company.community.models.Notification">
     insert into notification
@@ -129,6 +130,9 @@
       </if>
       <if test="gmtCreate != null">
         gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
       </if>
       <if test="status != null">
         status,
@@ -152,6 +156,9 @@
       </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=BIGINT},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=BIGINT},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -185,6 +192,9 @@
       <if test="record.gmtCreate != null">
         gmt_create = #{record.gmtCreate,jdbcType=BIGINT},
       </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=BIGINT},
+      </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
@@ -201,6 +211,7 @@
       outer_id = #{record.outerId,jdbcType=INTEGER},
       type = #{record.type,jdbcType=INTEGER},
       gmt_create = #{record.gmtCreate,jdbcType=BIGINT},
+      gmt_modified = #{record.gmtModified,jdbcType=BIGINT},
       status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -224,6 +235,9 @@
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=BIGINT},
       </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=BIGINT},
+      </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
@@ -237,6 +251,7 @@
       outer_id = #{outerId,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=BIGINT},
+      gmt_modified = #{gmtModified,jdbcType=BIGINT},
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>

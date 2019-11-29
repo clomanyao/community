@@ -49,8 +49,8 @@
                 </ul>
             </nav>
             <!--通知信息-->
-            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" th:if="${publishList==null}">
-                <div th:each="notificationDTO:${notificationDTOS}" class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${publishList==null}">
+                <div th:each="notificationDTO:${notificationDTOS}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <sapn class="notification" th:text="${notificationDTO.user.name}"></sapn>&nbsp;
                     <sapn th:text="${notificationDTO.name}"></sapn>&nbsp;
                     <span class="notification" >

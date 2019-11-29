@@ -65,6 +65,7 @@ public class CommentService {
     public void createNotice(Comment comment,int type,int receiver){
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
+        notification.setGmtModified(notification.getGmtCreate());
         //设置是问题的id，还是评论的id
         notification.setOuterId(comment.getParentId());
         //设置通知人

@@ -41,10 +41,9 @@ public class NotificationService {
         //查询问题的通知和评论通知
         List<NotificationDTO> notificationDTOList= new ArrayList<NotificationDTO>();
         NotificationExample notificationexample = new NotificationExample();
-        notificationexample.setOrderByClause("gmt_create desc");
-        notificationexample.createCriteria()
-                .andReceiverEqualTo(id)
-                .andStatusEqualTo(NotificationStatusEnum.NUREAD.getStatus());
+        notificationexample.setOrderByClause("gmt_modified asc");
+        notificationexample.createCriteria().andReceiverEqualTo(id);
+                //.andStatusEqualTo(NotificationStatusEnum.NUREAD.getStatus());
         PageHelper.startPage(pageNum,pageSize);
         List<Notification> notifications = notificationMapper.selectByExample(notificationexample);
         if(notifications==null){
@@ -93,6 +92,7 @@ public class NotificationService {
         }
         //根据通知信息id来更细通知信息的状态status
         Notification notification = new Notification();
+        notification.setGmtModified(System.currentTimeMillis());
         notification.setStatus(NotificationStatusEnum.READ.getStatus());
         NotificationExample example = new NotificationExample();
         example.createCriteria().andIdEqualTo(id);

@@ -13,6 +13,8 @@ public class Notification {
 
     private Long gmtCreate;
 
+    private Long gmtModified;
+
     private Integer status;
 
     public Integer getId() {
@@ -61,6 +63,14 @@ public class Notification {
 
     public void setGmtCreate(Long gmtCreate) {
         this.gmtCreate = gmtCreate;
+    }
+
+    public Long getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Long gmtModified) {
+        this.gmtModified = gmtModified;
     }
 
     public Integer getStatus() {
