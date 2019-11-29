@@ -1,13 +1,12 @@
 package com.company.community.service;
 
 import com.company.community.dto.CommentDTO;
+import com.company.community.enums.NotificationStatusEnum;
+import com.company.community.enums.NotificationTypeEnum;
 import com.company.community.exception.ExceptionEnum;
 import com.company.community.exception.MyException;
 import com.company.community.mapper.*;
-import com.company.community.models.Comment;
-import com.company.community.models.CommentExample;
-import com.company.community.models.Publish;
-import com.company.community.models.User;
+import com.company.community.models.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +27,8 @@ public class CommentService {
     private CommentMapperCustom commentMapperCustom;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private NotificationMapper notificationMapper;
 
     @Transactional
     public void insertComment(Comment comment) {
@@ -42,6 +43,9 @@ public class CommentService {
             //需要开启事务
             commentMapperCustom.insert(comment);
             publishMapperCustom.inComment(comment.getParentId());
+            //问题通知
+            createNotice(comment,NotificationTypeEnum.QUESTIONNOTICE.getType(),publish.getCreator());
+
         } else {
             //回复评论
             Comment dbcomment = commentMapper.selectByPrimaryKey(comment.getParentId());
@@ -52,8 +56,24 @@ public class CommentService {
                 comment.setGmtModified(comment.getGmtCreate());
                 commentMapper.insert(comment);
                 commentMapperCustom.updateCommentCount(comment.getParentId());
+                //评论通知
+                createNotice(comment,NotificationTypeEnum.COMMENTNOTICE.getType(),dbcomment.getCommentator());
             }
         }
+    }
+   //创建通知回复
+    public void createNotice(Comment comment,int type,int receiver){
+        Notification notification = new Notification();
+        notification.setGmtCreate(System.currentTimeMillis());
+        //设置是问题的id，还是评论的id
+        notification.setOuterId(comment.getParentId());
+        //设置通知人
+        notification.setNotifier(comment.getCommentator());
+        //设置接收人
+        notification.setReceiver(receiver);
+        notification.setType(type);
+        notification.setStatus(NotificationStatusEnum.NUREAD.getStatus());
+        notificationMapper.insert(notification);
     }
 
     public List<CommentDTO> selectByparentIdAndType(Integer id,Integer type) {

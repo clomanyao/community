@@ -5,7 +5,11 @@ public enum ExceptionEnum {
 
     QEUSTION("查找的问题不存在，换一个吧！"),
 
-    COMQUESTION("你回复的问题不存在!");
+    COMQUESTION("你回复的问题不存在!"),
+
+    NOTIFICATIONCANOTREAD("不可以读取别人问题哦!"),
+
+    NOTIFICATIONNOTFOUND("信息不翼而飞了！");
 
     public String getMessgae() {
         return messgae;

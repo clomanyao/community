@@ -1,5 +1,6 @@
 package com.company.community.dto;
 
+import com.company.community.models.Notification;
 import com.company.community.models.Publish;
 import com.github.pagehelper.PageInfo;
 import lombok.Data;
@@ -11,4 +12,6 @@ public class PageDTO {
     private PageInfo<Publish> pageInfo;
 
     private PageInfo<Publish> profilePageInfo;
+
+    private PageInfo<Notification> notificationPageInfo;
 }

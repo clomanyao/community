@@ -1,6 +1,9 @@
 package com.company.community.config.interceptors;
 
+import com.company.community.enums.NotificationStatusEnum;
+import com.company.community.mapper.NotificationMapper;
 import com.company.community.mapper.UserMapperCustom;
+import com.company.community.models.NotificationExample;
 import com.company.community.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,6 +20,11 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Autowired
     private UserMapperCustom userMapperCustom;
 
+    @Autowired
+    private NotificationMapper notificationMapper;
+
+    private Long unreadCount;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();
@@ -26,6 +34,13 @@ public class LoginInterceptor implements HandlerInterceptor {
                     User user = userMapperCustom.findUserByToken(cookie.getValue());
                     if(user!=null){
                         request.getSession().setAttribute("user",user);
+                        //查询通知数
+                        NotificationExample example = new NotificationExample();
+                        example.createCriteria()
+                                .andReceiverEqualTo(user.getId())
+                                .andStatusEqualTo(NotificationStatusEnum.NUREAD.getStatus());
+                        unreadCount = notificationMapper.countByExample(example);
+                        request.getSession().setAttribute("unreadCount",unreadCount);
                     }
                     break;
                 }
@@ -36,7 +51,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
     }
 
     @Override

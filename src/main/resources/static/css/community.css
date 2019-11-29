@@ -106,3 +106,16 @@
 .label{
     white-space: normal;
 }
+.repliescss{
+    background-color: firebrick;
+}
+.notification{
+    color: #2aabd2;
+}
+.pagecss{
+    margin-left: 400px;
+}
+.notificationdate{
+    margin-top: 10px;
+    margin-bottom: -20px;
+}

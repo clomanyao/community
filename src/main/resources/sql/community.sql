@@ -22,3 +22,13 @@ like_count int(11),
 context LONGTEXT,
 comment_count int(11) DEFAULT 0
 )
+
+create table if not EXISTS notification(
+id int(11) PRIMARY key not null auto_increment,
+notifier int(11),
+receiver int(11),
+outer_id int(11),#区分是问题的id还是回复的id
+type int(11),
+gmt_create bigint(20),
+status int(11) DEFAULT 0
+)

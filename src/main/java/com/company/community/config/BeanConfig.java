@@ -15,6 +15,7 @@ public class BeanConfig extends WebMvcConfigurerAdapter {
 
       @Autowired
       private LoginInterceptor loginInterceptor;
+
      //将分页插件加入到容器中
      @Bean
      public PageHelper pageHelper(){
