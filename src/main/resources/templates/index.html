@@ -37,7 +37,7 @@
                     <h4 class="media-heading">
                         <a th:href="@{'/question/'+${publishDTOS.id}}" th:text="${publishDTOS.title}"></a>
                     </h4>
-                    <span style="font-size: 12px;font-weight: normal;color:#999;">回复了问题 • [[${publishDTOS.likeCount}]] 人关注 • [[${publishDTOS.commentCount}]] 个回复 • [[${publishDTOS.viewCount}]] 次浏览 • <span
+                    <span style="font-size: 12px;font-weight: normal;color:#999;"> [[${publishDTOS.likeCount}]] 人点赞 • [[${publishDTOS.commentCount}]] 个回复 • [[${publishDTOS.viewCount}]] 次浏览 • <span
                             th:text="${#dates.format(publishDTOS.gmtCreate,'yyyy-MM-dd hh:mm')}"></span>
                     </span>
                 </div>

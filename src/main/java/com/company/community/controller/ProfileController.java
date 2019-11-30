@@ -2,6 +2,7 @@ package com.company.community.controller;
 
 import com.company.community.dto.NotificationDTO;
 import com.company.community.dto.PageDTO;
+import com.company.community.dto.PublishDTO;
 import com.company.community.models.Notification;
 import com.company.community.models.Publish;
 import com.company.community.models.User;
@@ -44,8 +45,8 @@ public class ProfileController {
         if ("question".equals(action)) {
             model.addAttribute("question", "question");
             model.addAttribute("selectName", "我的问题");
-            List<Publish> publishList = publishService.selectPublistByCreatorId(user.getId(), pageNum, pageSize);
-            model.addAttribute("publishList", publishList);
+            List<PublishDTO> publishDTOS = publishService.selectPublistByCreatorId(user.getId(), pageNum, pageSize);
+            model.addAttribute("publishDTOS", publishDTOS);
             PageInfo<Publish> profilePageInfo = pageDTO.getProfilePageInfo();
             int[] nums = profilePageInfo.getNavigatepageNums();
             model.addAttribute("user", user);

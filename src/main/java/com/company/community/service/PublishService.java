@@ -6,6 +6,7 @@ import com.company.community.exception.ExceptionEnum;
 import com.company.community.exception.MyException;
 import com.company.community.mapper.PublishMapper;
 import com.company.community.mapper.PublishMapperCustom;
+import com.company.community.mapper.UserMapper;
 import com.company.community.mapper.UserMapperCustom;
 import com.company.community.models.Publish;
 import com.company.community.models.User;
@@ -30,6 +31,9 @@ public class PublishService {
 
     @Autowired
     private UserMapperCustom userMapperCustom;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Autowired
     private PublishMapper publishMapper;
@@ -58,13 +62,21 @@ public class PublishService {
     }
 
 
-    public List<Publish> selectPublistByCreatorId(Integer createId, Integer pageNum, Integer pageSize) {
+    public List<PublishDTO> selectPublistByCreatorId(Integer createId, Integer pageNum, Integer pageSize) {
+        List<PublishDTO> publishDTOS=new ArrayList<>();
         PageHelper.startPage(pageNum, pageSize);
         List<Publish> publishList = publishMapperCustom.selectPublistByCreatorId(createId);
+        User user = userMapper.selectByPrimaryKey(createId);
+        for (Publish publish : publishList) {
+            PublishDTO publishDTO = new PublishDTO();
+            BeanUtils.copyProperties(publish,publishDTO);
+            publishDTO.setUser(user);
+            publishDTOS.add(publishDTO);
+        }
         //连续展示的页面
         PageInfo<Publish> profilePageInfo = new PageInfo<>(publishList, navigatePages);
         pageDTO.setProfilePageInfo(profilePageInfo);
-        return publishList;
+        return publishDTOS;
     }
 
 

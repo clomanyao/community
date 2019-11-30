@@ -81,6 +81,8 @@
 }
 .edit{
     margin-left: 15px;
+    font-size: 12px;
+    color: gray;
 }
 .ulrelatedquestion{
     padding-left: 0px;

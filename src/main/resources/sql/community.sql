@@ -1,3 +1,15 @@
+CREATE TABLE `user`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT primary key,
+  `ACCOUNT_ID` varchar(100),
+  `NAME` varchar(50) ,
+  `TOKEN` char(36),
+  `GMT_CREATE` bigint(20),
+  `GMT_MODIFIED` bigint(20) ,
+  `bio` varchar(256) ,
+  `avatar_url` varchar(100)
+)
+
+
 create table if not EXISTS publish(
 id int PRIMARY key not null auto_increment,
 title VARCHAR(25),

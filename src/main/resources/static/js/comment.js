@@ -181,5 +181,12 @@ function showTag() {
         tag.removeClass("showtag")
         tag.addClass("hidetag");
     }
+}
 
+
+/*
+* 评论点赞功能实现
+* */
+function likeCount() {
+    
 }

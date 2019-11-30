@@ -17,20 +17,23 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h3>[[${selectName}]]</h3>
             <hr>
-            <div class="media" th:each="publishList: ${publishList}" th:if="${publishList!=null}">
+            <div class="media" th:each="publishDTO: ${publishDTOS}" th:if="${publishDTOS!=null}">
                 <!--图像展示略-->
                 <div class="media-body">
                     <h4 class="media-heading">
-                        <a th:href="@{'/publish/'+${publishList.id}}"> [[${publishList.title}]]</a>
+                        <a th:href="@{'/question/'+${publishDTO.id}}"> [[${publishDTO.title}]]</a>
+                        <a th:href="@{'/publish/'+${publishDTO.id}}">
+                        <span class="glyphicon glyphicon-edit edit"
+                              th:if="${session.user.name==publishDTO.user.name}">编辑</span></a>
                     </h4>
-                    <span style="font-size: 12px;font-weight: normal;color:#999;">回复了问题 • [[${publishList.likeCount}]] 人关注 • [[${publishList.commentCount}]] 个回复 • [[${publishList.viewCount}]] 次浏览 • <span
-                            th:text="${#dates.format(publishList.gmtCreate,'yyyy-MM-dd hh:mm')}"></span>
-                        </span>
+                    <span style="font-size: 12px;font-weight: normal;color:#999;"> [[${publishDTO.likeCount}]] 人点赞 • [[${publishDTO.commentCount}]] 个回复 • [[${publishDTO.viewCount}]] 次浏览 • <span
+                            th:text="${#dates.format(publishDTO.gmtCreate,'yyyy-MM-dd hh:mm')}"></span>
+                    </span>
                 </div>
                 <hr style="margin-top: 10px;margin-bottom: 5px;">
             </div>
             <!--分页-->
-            <nav aria-label="Page navigation" class="pagecss" th:if="${publishList!=null}">
+            <nav aria-label="Page navigation" class="pagecss" th:if="${publishDTOS!=null}">
                 <ul class="pagination">
                     <li th:if="${!profilePageInfo.isIsFirstPage()}">
                         <a th:href="@{'/profile/'+${question}(pageNum=1)}" aria-label="Previous">
@@ -49,7 +52,7 @@
                 </ul>
             </nav>
             <!--通知信息-->
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${publishList==null}">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${publishDTOS==null}">
                 <div th:each="notificationDTO:${notificationDTOS}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <sapn class="notification" th:text="${notificationDTO.user.name}"></sapn>&nbsp;
                     <sapn th:text="${notificationDTO.name}"></sapn>&nbsp;

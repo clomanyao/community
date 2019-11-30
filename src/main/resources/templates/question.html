@@ -63,7 +63,7 @@
                                 </h6>
                                 <span th:text="${commentDTO.context}"></span>
                                 <div th:if="${session.user!=null}" class="comentlike">
-                                    <span class="glyphicon glyphicon-thumbs-up icon"></span>
+                                    <span class="glyphicon glyphicon-thumbs-up icon" onclick="likeCount()"></span>
                                     <span class="glyphicon glyphicon-comment icon" th:id="${commentDTO.id}"
                                           th:data-id="${commentDTO.id}" onclick="collapseComment(this)"
                                           th:text="${commentDTO.commentCount!=0?commentDTO.commentCount:''}">
