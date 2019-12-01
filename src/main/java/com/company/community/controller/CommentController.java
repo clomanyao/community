@@ -38,7 +38,7 @@ public class CommentController {
         }
         comment.setCommentator(user.getId());
         comment.setLikeCount(0);
-        commentService.insertComment(comment);
+        commentService.insertComment(comment,user.getId());
         //Comment dbcommnet = commentMapper.selectByPrimaryKey(comment.getId());
         return CommentEnumType.COMMENTOK.getType();
     }

@@ -23,6 +23,6 @@
   </update>
 
   <select id="selectPublishByTags" resultType="com.company.community.models.Publish">
-    select * from publish p where p.id!=#{id} and p.tag regexp #{tag}
+    select * from publish p where p.id!=#{id} and p.tag regexp #{tag} order by gmt_create desc
   </select>
 </mapper>

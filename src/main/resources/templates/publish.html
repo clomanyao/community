@@ -12,6 +12,7 @@
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/comment.js" type="application/javascript"></script>
     <script src="/js/editormd.min.js" type="application/javascript"></script>
+    <script src="/js/plugins/image-dialog/image-dialog.js" type="application/javascript"></script>
     <script type="text/javascript">
         $(function () {
             var editor = editormd("question-editor", {
@@ -20,6 +21,9 @@
                 placeholder: "请填写问题具体内容",
                 watch: false,
                 delay:0,
+                imageUpload    : true,
+                imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL : "/file/upload",
                 path: "/js/lib/"
             });
         });

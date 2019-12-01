@@ -34,7 +34,7 @@ public class CommentService {
     private LikecountMapper likecountMapper;
 
     @Transactional
-    public void insertComment(Comment comment) {
+    public void insertComment(Comment comment,Integer userId) {
         if (comment.getType() == 1) {
             Publish publish = publishMapper.selectByPrimaryKey(comment.getParentId());
             if (publish == null) {
@@ -47,8 +47,9 @@ public class CommentService {
             commentMapperCustom.insert(comment);
             publishMapperCustom.inComment(comment.getParentId());
             //问题通知
-            createNotice(comment, NotificationTypeEnum.QUESTIONNOTICE.getType(), publish.getCreator());
-
+            if(userId!=comment.getCommentator()){
+                createNotice(comment, NotificationTypeEnum.QUESTIONNOTICE.getType(), publish.getCreator());
+            }
         } else {
             //回复评论
             Comment dbcomment = commentMapper.selectByPrimaryKey(comment.getParentId());
@@ -60,7 +61,9 @@ public class CommentService {
                 commentMapper.insert(comment);
                 commentMapperCustom.updateCommentCount(comment.getParentId());
                 //评论通知
-                createNotice(comment, NotificationTypeEnum.COMMENTNOTICE.getType(), dbcomment.getCommentator());
+                if(userId!=comment.getCommentator()){
+                    createNotice(comment, NotificationTypeEnum.COMMENTNOTICE.getType(), dbcomment.getCommentator());
+                }
             }
         }
     }
