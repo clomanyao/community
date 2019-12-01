@@ -1,7 +1,7 @@
 /*
 * （一级和二级评论）提交评论以json数据向后台传参
 * */
-function comment(parentId, type, context) {
+function comment(parentId, type, context,annotype) {
 
     if (context.length == 0 || context == null) {
         alert("评论不能为空");
@@ -14,7 +14,8 @@ function comment(parentId, type, context) {
         data: JSON.stringify({
             "parentId": parentId,
             "context": context,
-            "type": type
+            "type": type,
+            "annoType":annotype
         }),
         dataType: "json",//返回的数据格式为json
         success: function (data) {
@@ -39,7 +40,13 @@ function comment(parentId, type, context) {
 function postcomment() {
     var questionId = $("#question_id").val();
     var context = $("#comment_context").val();
-    comment(questionId, 1, context);
+    var anno=document.getElementById("anno").value;
+    if(anno=='实名'){
+        //anno为实名，表示现在为匿名提交，anntype=1
+        comment(questionId, 1, context,1);
+    }else{
+        comment(questionId, 1, context,0);
+    }
 }
 
 /*
@@ -48,7 +55,14 @@ function postcomment() {
 function secondcommment(e) {
     var dataId = e.getAttribute("data-second");
     var replycontext = $("#second" + dataId).val();
-    comment(dataId, 2, replycontext);
+    var secondanno=document.getElementById("secondanno").value;
+    //comment(dataId,2,replycontext,0);
+    if(secondanno=='实名'){
+        //anno为实名，表示现在为匿名提交，anntype=1
+        comment(dataId, 2, replycontext,1);
+    }else{
+        comment(dataId, 2, replycontext,0);
+    }
 }
 
 
@@ -96,13 +110,13 @@ function collapseComment(e) {
                     })
 
                     var commentimg = $("<a/>", {
-                        "href": commentDTO.user.avatarUrl,
+                        "href": (commentDTO.annoType==0?commentDTO.user.avatarUrl:'/images/anonymous.png'),
                         "class": "commentimg",
                     })
 
                     var imgcss = $("<img/>", {
                         "class": "media-object img-thumbnail imgcss",
-                        "src": commentDTO.user.avatarUrl
+                        "src": (commentDTO.annoType==0?commentDTO.user.avatarUrl:'/images/anonymous.png')
                     })
 
                     mediacommentuser.append(medialeft);
@@ -120,7 +134,7 @@ function collapseComment(e) {
 
                     var namecss = $("<span/>", {
                         "class": "namecss",
-                        "html": commentDTO.user.name
+                        "html": (commentDTO.annoType==0?commentDTO.user.name:'匿名用户')
                     })
 
                     var span2element = $("<span/>", {
@@ -157,11 +171,11 @@ function collapseComment(e) {
 function submitTag(value) {
     var previous = $("#tag").val();
     //如果==-1代表没有添加value标签
-    if(previous.indexOf(value)==-1){
-        if(previous){
+    if (previous.indexOf(value) == -1) {
+        if (previous) {
             //如果有添加过标签就直接把前面的标签加上后面的标签
-            $("#tag").val(previous+','+value);
-        }else{
+            $("#tag").val(previous + ',' + value);
+        } else {
             //反之...
             $("#tag").val(value);
         }
@@ -174,10 +188,10 @@ function submitTag(value) {
 function showTag() {
     var tag = $("#selectTag");
     var tagclass = tag.attr("class");
-    if(tagclass=="hidetag"){
+    if (tagclass == "hidetag") {
         tag.removeClass("hidetag");
         tag.addClass("showtag");
-    }else {
+    } else {
         tag.removeClass("showtag")
         tag.addClass("hidetag");
     }
@@ -189,10 +203,35 @@ function showTag() {
 * */
 function likeCount(e) {
     var id = e.getAttribute("data-like");
-    var xmlhttp=new XMLHttpRequest();
-    var url="http://localhost:8887/like/"+id;
-    window.localStorage.setItem("like",true);
-    xmlhttp.open("POST",url,true); //第三个参数是同步异步,主线程只能异步
+    var xmlhttp = new XMLHttpRequest();
+    var url = "http://localhost:8887/like/" + id;
+    window.localStorage.setItem("like", true);
+    xmlhttp.open("POST", url, true); //第三个参数是同步异步,主线程只能异步
     xmlhttp.send();
     window.location.reload();  //刷新本页面
+}
+
+/*
+* 匿名提交
+* */
+function anonymous() {
+    var userId = document.getElementById("user");
+    var anonymous = document.getElementById("anonymous");
+    if (userId.style.display == 'block') {
+        userId.style.display = 'none';
+        anonymous.style.display = 'block';
+        $("#anno").attr("value","实名");
+    } else {
+        userId.style.display = 'block';
+        anonymous.style.display = 'none';
+        $("#anno").attr("value","匿名");
+    }
+}
+function twolevelanonymous() {
+    var secondanno = document.getElementById("secondanno").value;
+    if(secondanno=='实名'){
+        $("#secondanno").attr("value","匿名");
+    }else {
+        $("#secondanno").attr("value","实名");
+    }
 }

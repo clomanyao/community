@@ -8,8 +8,9 @@
     <result column="commentator" jdbcType="INTEGER" property="commentator" />
     <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="BIGINT" property="gmtModified" />
-    <result column="like_count" jdbcType="INTEGER" property="likeCount" />
     <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+    <result column="like_count" jdbcType="INTEGER" property="likeCount" />
+    <result column="anno_type" jdbcType="INTEGER" property="annoType" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.company.community.models.Comment">
     <result column="context" jdbcType="LONGVARCHAR" property="context" />
@@ -73,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, parent_id, type, commentator, gmt_create, gmt_modified, like_count, comment_count
+    id, parent_id, type, commentator, gmt_create, gmt_modified, comment_count, like_count, 
+    anno_type
   </sql>
   <sql id="Blob_Column_List">
     context
@@ -129,12 +131,12 @@
   <insert id="insert" parameterType="com.company.community.models.Comment">
     insert into comment (id, parent_id, type, 
       commentator, gmt_create, gmt_modified, 
-      like_count, comment_count, context
-      )
+      comment_count, like_count, anno_type, 
+      context)
     values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
       #{commentator,jdbcType=INTEGER}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, 
-      #{likeCount,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER}, #{context,jdbcType=LONGVARCHAR}
-      )
+      #{commentCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, #{annoType,jdbcType=INTEGER}, 
+      #{context,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.company.community.models.Comment">
     insert into comment
@@ -157,11 +159,14 @@
       <if test="gmtModified != null">
         gmt_modified,
       </if>
+      <if test="commentCount != null">
+        comment_count,
+      </if>
       <if test="likeCount != null">
         like_count,
       </if>
-      <if test="commentCount != null">
-        comment_count,
+      <if test="annoType != null">
+        anno_type,
       </if>
       <if test="context != null">
         context,
@@ -186,11 +191,14 @@
       <if test="gmtModified != null">
         #{gmtModified,jdbcType=BIGINT},
       </if>
+      <if test="commentCount != null">
+        #{commentCount,jdbcType=INTEGER},
+      </if>
       <if test="likeCount != null">
         #{likeCount,jdbcType=INTEGER},
       </if>
-      <if test="commentCount != null">
-        #{commentCount,jdbcType=INTEGER},
+      <if test="annoType != null">
+        #{annoType,jdbcType=INTEGER},
       </if>
       <if test="context != null">
         #{context,jdbcType=LONGVARCHAR},
@@ -224,11 +232,14 @@
       <if test="record.gmtModified != null">
         gmt_modified = #{record.gmtModified,jdbcType=BIGINT},
       </if>
+      <if test="record.commentCount != null">
+        comment_count = #{record.commentCount,jdbcType=INTEGER},
+      </if>
       <if test="record.likeCount != null">
         like_count = #{record.likeCount,jdbcType=INTEGER},
       </if>
-      <if test="record.commentCount != null">
-        comment_count = #{record.commentCount,jdbcType=INTEGER},
+      <if test="record.annoType != null">
+        anno_type = #{record.annoType,jdbcType=INTEGER},
       </if>
       <if test="record.context != null">
         context = #{record.context,jdbcType=LONGVARCHAR},
@@ -246,8 +257,9 @@
       commentator = #{record.commentator,jdbcType=INTEGER},
       gmt_create = #{record.gmtCreate,jdbcType=BIGINT},
       gmt_modified = #{record.gmtModified,jdbcType=BIGINT},
-      like_count = #{record.likeCount,jdbcType=INTEGER},
       comment_count = #{record.commentCount,jdbcType=INTEGER},
+      like_count = #{record.likeCount,jdbcType=INTEGER},
+      anno_type = #{record.annoType,jdbcType=INTEGER},
       context = #{record.context,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -261,8 +273,9 @@
       commentator = #{record.commentator,jdbcType=INTEGER},
       gmt_create = #{record.gmtCreate,jdbcType=BIGINT},
       gmt_modified = #{record.gmtModified,jdbcType=BIGINT},
+      comment_count = #{record.commentCount,jdbcType=INTEGER},
       like_count = #{record.likeCount,jdbcType=INTEGER},
-      comment_count = #{record.commentCount,jdbcType=INTEGER}
+      anno_type = #{record.annoType,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -285,11 +298,14 @@
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=BIGINT},
       </if>
+      <if test="commentCount != null">
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
       <if test="likeCount != null">
         like_count = #{likeCount,jdbcType=INTEGER},
       </if>
-      <if test="commentCount != null">
-        comment_count = #{commentCount,jdbcType=INTEGER},
+      <if test="annoType != null">
+        anno_type = #{annoType,jdbcType=INTEGER},
       </if>
       <if test="context != null">
         context = #{context,jdbcType=LONGVARCHAR},
@@ -304,8 +320,9 @@
       commentator = #{commentator,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=BIGINT},
       gmt_modified = #{gmtModified,jdbcType=BIGINT},
-      like_count = #{likeCount,jdbcType=INTEGER},
       comment_count = #{commentCount,jdbcType=INTEGER},
+      like_count = #{likeCount,jdbcType=INTEGER},
+      anno_type = #{annoType,jdbcType=INTEGER},
       context = #{context,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -316,8 +333,9 @@
       commentator = #{commentator,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=BIGINT},
       gmt_modified = #{gmtModified,jdbcType=BIGINT},
+      comment_count = #{commentCount,jdbcType=INTEGER},
       like_count = #{likeCount,jdbcType=INTEGER},
-      comment_count = #{commentCount,jdbcType=INTEGER}
+      anno_type = #{annoType,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -7,7 +7,6 @@ import com.company.community.exception.MyException;
 import com.company.community.models.Comment;
 import com.company.community.models.User;
 import com.company.community.service.CommentService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,8 +38,8 @@ public class CommentController {
         comment.setCommentator(user.getId());
         comment.setLikeCount(0);
         commentService.insertComment(comment,user.getId());
-        //Comment dbcommnet = commentMapper.selectByPrimaryKey(comment.getId());
         return CommentEnumType.COMMENTOK.getType();
+
     }
 
     @GetMapping("/comment/{id}")

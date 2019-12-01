@@ -13,9 +13,11 @@ public class Comment {
 
     private Long gmtModified;
 
+    private Integer commentCount;
+
     private Integer likeCount;
 
-    private Integer commentCount;
+    private Integer annoType;
 
     private String context;
 
@@ -67,6 +69,14 @@ public class Comment {
         this.gmtModified = gmtModified;
     }
 
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
+    }
+
     public Integer getLikeCount() {
         return likeCount;
     }
@@ -75,12 +85,12 @@ public class Comment {
         this.likeCount = likeCount;
     }
 
-    public Integer getCommentCount() {
-        return commentCount;
+    public Integer getAnnoType() {
+        return annoType;
     }
 
-    public void setCommentCount(Integer commentCount) {
-        this.commentCount = commentCount;
+    public void setAnnoType(Integer annoType) {
+        this.annoType = annoType;
     }
 
     public String getContext() {
