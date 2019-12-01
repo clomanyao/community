@@ -7,11 +7,21 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/community.css">
+    <link rel="stylesheet" href="/css/editormd.preview.css" />
     <script src="/js/jquery-3.4.1.min.js" type="application/javascript"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/comment.js" type="application/javascript"></script>
     <script src="/js/moment.js" type="application/javascript"></script>
-   <script type="application/javascript">
+    <script src="/js/editormd.js" type="application/javascript"></script>
+    <script src="/js/lib/marked.min.js"></script>
+    <script src="/js/lib/prettify.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var testView = editormd.markdownToHTML("test-markdown-view", {
+            });
+        });
+    </script>
+    <script type="application/javascript">
         window.onload=function () {
             var like = window.localStorage.getItem("like");
             if (like == "true") {
@@ -34,9 +44,9 @@
                     阅读数 <span>[[${publishDTO.viewCount}]]</span>
                 </span>
             </div>
-            <hr>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                [[${publishDTO.description}]]
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="test-markdown-view">
+                <textarea style="display:none;">[[${publishDTO.description}]]</textarea>
                 <hr>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
