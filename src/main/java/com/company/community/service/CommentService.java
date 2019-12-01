@@ -1,6 +1,7 @@
 package com.company.community.service;
 
 import com.company.community.dto.CommentDTO;
+import com.company.community.enums.CommentEnumType;
 import com.company.community.enums.NotificationStatusEnum;
 import com.company.community.enums.NotificationTypeEnum;
 import com.company.community.exception.ExceptionEnum;
@@ -29,6 +30,8 @@ public class CommentService {
     private UserMapper userMapper;
     @Autowired
     private NotificationMapper notificationMapper;
+    @Autowired
+    private LikecountMapper likecountMapper;
 
     @Transactional
     public void insertComment(Comment comment) {
@@ -44,7 +47,7 @@ public class CommentService {
             commentMapperCustom.insert(comment);
             publishMapperCustom.inComment(comment.getParentId());
             //问题通知
-            createNotice(comment,NotificationTypeEnum.QUESTIONNOTICE.getType(),publish.getCreator());
+            createNotice(comment, NotificationTypeEnum.QUESTIONNOTICE.getType(), publish.getCreator());
 
         } else {
             //回复评论
@@ -57,12 +60,13 @@ public class CommentService {
                 commentMapper.insert(comment);
                 commentMapperCustom.updateCommentCount(comment.getParentId());
                 //评论通知
-                createNotice(comment,NotificationTypeEnum.COMMENTNOTICE.getType(),dbcomment.getCommentator());
+                createNotice(comment, NotificationTypeEnum.COMMENTNOTICE.getType(), dbcomment.getCommentator());
             }
         }
     }
-   //创建通知回复
-    public void createNotice(Comment comment,int type,int receiver){
+
+    //创建通知回复
+    public void createNotice(Comment comment, int type, int receiver) {
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
         notification.setGmtModified(notification.getGmtCreate());
@@ -77,22 +81,37 @@ public class CommentService {
         notificationMapper.insert(notification);
     }
 
-    public List<CommentDTO> selectByparentIdAndType(Integer id,Integer type) {
+    public List<CommentDTO> selectByparentIdAndType(Integer id, Integer type, Integer userId) {
+        List<CommentDTO> commentDTOArrayList = new ArrayList<CommentDTO>();
         CommentExample commentExample = new CommentExample();
         commentExample.setOrderByClause("gmt_create desc");  //评论信息倒序排列
         commentExample.createCriteria().andParentIdEqualTo(id).andTypeEqualTo(type);
         //selectByExampleWithBLOBs方法会对数据库text类型进行查询
         List<Comment> comments = commentMapper.selectByExampleWithBLOBs(commentExample);
-        if(comments==null&&comments.size()==0){
+        if (comments == null && comments.size() == 0) {
             return null;
         }
         //本处代码逻辑太罗嗦，以后会用java 8的lamba和steam知识进行代码优化
-        List<CommentDTO> commentDTOArrayList = new ArrayList<CommentDTO>();
         for (Comment comment : comments) {
             User user = userMapper.selectByPrimaryKey(comment.getCommentator());
             CommentDTO commentDTO = new CommentDTO();
-            BeanUtils.copyProperties(comment,commentDTO);
+            BeanUtils.copyProperties(comment, commentDTO);
             commentDTO.setUser(user);
+            //用来查询用户是否赞过评论
+            if (userId != null) {
+                if (type == CommentEnumType.QUESTION.getType()) {
+                    //设置查询用户是否点赞评论的查询条件
+                    LikecountExample likecountexample = new LikecountExample();
+                    likecountexample.createCriteria().andLikeUserEqualTo(userId)
+                                                     .andCommentIdEqualTo(comment.getId());
+                    List<Likecount> likecounts = likecountMapper.selectByExample(likecountexample);
+                    if (likecounts.size() == 1 && likecounts != null) {
+                        commentDTO.setStatus(likecounts.get(0).getStatus());
+                    } else {
+                        commentDTO.setStatus(0);
+                    }
+                }
+            }
             commentDTOArrayList.add(commentDTO);
         }
         return commentDTOArrayList;

@@ -187,6 +187,12 @@ function showTag() {
 /*
 * 评论点赞功能实现
 * */
-function likeCount() {
-    
+function likeCount(e) {
+    var id = e.getAttribute("data-like");
+    var xmlhttp=new XMLHttpRequest();
+    var url="http://localhost:8887/like/"+id;
+    window.localStorage.setItem("like",true);
+    xmlhttp.open("POST",url,true); //第三个参数是同步异步,主线程只能异步
+    xmlhttp.send();
+    window.location.reload();  //刷新本页面
 }

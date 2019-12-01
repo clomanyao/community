@@ -30,7 +30,7 @@ type int(11),
 commentator int(11),
 gmt_create BIGINT,
 gmt_modified BIGINT,
-like_count int(11),
+like_count int(11)  DEFAULT 0,
 context LONGTEXT,
 comment_count int(11) DEFAULT 0
 )
@@ -44,4 +44,13 @@ type int(11),
 gmt_create bigint(20),
 gmt_modified bigint(20),
 status int(11) DEFAULT 0
+)
+
+create table if not EXISTS likeCount(
+id int(11) PRIMARY key not null auto_increment,
+like_user int(11) not null,
+comment_id int(11) not null,
+gmt_create bigint(20),
+like_count int(11) not null,
+status int(11) DEFAULT 0 #记载本评论是否被赞过
 )

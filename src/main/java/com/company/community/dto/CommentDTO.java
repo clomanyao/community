@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 public class CommentDTO extends Comment {
     private User user;
-
+    private Integer status; //用来用户是否点赞的状态
 }

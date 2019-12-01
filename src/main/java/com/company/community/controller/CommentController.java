@@ -36,8 +36,8 @@ public class CommentController {
         if (user == null) {
             throw new MyException(ExceptionEnum.USERISNULL);
         }
-        //comment.setLikeCount(1);
         comment.setCommentator(user.getId());
+        comment.setLikeCount(0);
         commentService.insertComment(comment);
         //Comment dbcommnet = commentMapper.selectByPrimaryKey(comment.getId());
         return CommentEnumType.COMMENTOK.getType();
@@ -45,8 +45,9 @@ public class CommentController {
 
     @GetMapping("/comment/{id}")
     public @ResponseBody
-    List<CommentDTO> getcomment(@PathVariable("id") Integer id) {
-        List<CommentDTO> commentDTOS = commentService.selectByparentIdAndType(id, CommentEnumType.COMMENT.getType());
+    List<CommentDTO> getcomment(@PathVariable("id") Integer id,HttpServletRequest request) {
+        User user =(User)request.getSession().getAttribute("user");
+        List<CommentDTO> commentDTOS = commentService.selectByparentIdAndType(id, CommentEnumType.COMMENT.getType(),user.getId());
         return commentDTOS;
     }
 

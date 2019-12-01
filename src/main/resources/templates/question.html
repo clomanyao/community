@@ -11,6 +11,15 @@
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/comment.js" type="application/javascript"></script>
     <script src="/js/moment.js" type="application/javascript"></script>
+   <script type="application/javascript">
+        window.onload=function () {
+            var like = window.localStorage.getItem("like");
+            if (like == "true") {
+                window.localStorage.removeItem("like");
+                window.location.reload();
+            }
+        }
+    </script>
 </head>
 <body style="background-color: #efefef">
 <div th:replace="~{bar::copy}"></div>
@@ -63,7 +72,9 @@
                                 </h6>
                                 <span th:text="${commentDTO.context}"></span>
                                 <div th:if="${session.user!=null}" class="comentlike">
-                                    <span class="glyphicon glyphicon-thumbs-up icon" onclick="likeCount()"></span>
+                                    <span th:class="${commentDTO.status==1}?'glyphicon glyphicon-thumbs-up icon active':'glyphicon glyphicon-thumbs-up icon'"  th:data-like="${commentDTO.id}" onclick="likeCount(this)"
+                                          th:text="${commentDTO.likeCount!=0?commentDTO.likeCount:''}">
+                                    </span>
                                     <span class="glyphicon glyphicon-comment icon" th:id="${commentDTO.id}"
                                           th:data-id="${commentDTO.id}" onclick="collapseComment(this)"
                                           th:text="${commentDTO.commentCount!=0?commentDTO.commentCount:''}">
