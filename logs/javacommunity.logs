@@ -7,3 +7,8 @@
 2019-12-02 22:06:42.906  INFO 21724 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
 2019-12-02 22:06:43.477  INFO 21724 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
 2019-12-02 22:06:43.481  INFO 21724 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 6348 ms
+2019-12-02 22:06:47.796  INFO 21724 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-02 22:06:48.162  INFO 21724 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2019-12-02 22:06:48.859  INFO 21724 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-12-02 22:06:49.033  INFO 21724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8887 (http) with context path ''
+2019-12-02 22:06:49.042  INFO 21724 --- [restartedMain] c.c.community.CommunityApplication       : Started CommunityApplication in 13.616 seconds (JVM running for 17.444)
