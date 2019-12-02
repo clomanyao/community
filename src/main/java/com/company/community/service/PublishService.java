@@ -15,10 +15,15 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -127,5 +132,29 @@ public class PublishService {
             throw new MyException(ExceptionEnum.QEUSTION);
         }
         return publishList;
+    }
+
+    public String fileupload(MultipartFile file){
+        if(StringUtils.isEmpty(file)){
+            return null;
+        }
+        //拿到文件名
+        String fileName=file.getOriginalFilename();
+        //后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        //上传的路径
+        String filepath="D:\\idea3\\images\\";
+        fileName= UUID.randomUUID().toString().substring(0,12)+suffixName;
+        File dest = new File(filepath+fileName);
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        try {
+            //方法将上传文件写到服务器上指定的文件
+            file.transferTo(dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return fileName;
     }
 }

@@ -26,7 +26,7 @@
                         <span class="glyphicon glyphicon-edit edit"
                               th:if="${session.user.name==publishDTO.user.name}">编辑</span></a>
                     </h4>
-                    <span style="font-size: 12px;font-weight: normal;color:#999;"> [[${publishDTO.likeCount}]] 人点赞 • [[${publishDTO.commentCount}]] 个回复 • [[${publishDTO.viewCount}]] 次浏览 • <span
+                    <span style="font-size: 12px;font-weight: normal;color:#999;">  [[${publishDTO.commentCount}]] 个回复 • [[${publishDTO.viewCount}]] 次浏览 • <span
                             th:text="${#dates.format(publishDTO.gmtCreate,'yyyy-MM-dd hh:mm')}"></span>
                     </span>
                 </div>
