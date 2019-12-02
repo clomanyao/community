@@ -41,11 +41,16 @@ public class PublishService {
     @Autowired
     private PageDTO pageDTO;
 
-    public List<PublishDTO> selectPublishList(Integer pageNum, Integer pageSize) {
+    public List<PublishDTO> selectPublishList(Integer pageNum, Integer pageSize,String search) {
         List<PublishDTO> dtoArrrayList = new ArrayList<PublishDTO>();
         //分页查询
         PageHelper.startPage(pageNum, pageSize);
-        List<Publish> publishList = publishMapperCustom.selectPublishList();
+        //搜索问题功能
+        if(search!=null){
+            String[] split = search.split(" ");
+            search = Arrays.stream(split).collect(Collectors.joining("|"));
+        }
+        List<Publish> publishList = publishMapperCustom.selectPublishList(search);
         for (Publish publish : publishList) {
             PublishDTO publishDTO = new PublishDTO();
             //将publishList中的每个属性copy到publishDTO中

@@ -46,15 +46,15 @@
             <nav aria-label="Page navigation" style="margin-left: 400px;">
                 <ul class="pagination">
                     <li th:if="${!pageInfo.isIsFirstPage()}">
-                        <a th:href="@{/(pageNum=1)}" aria-label="Previous">
+                        <a th:href="@{/(pageNum=1,search=${search})}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li th:each="nums:${nums}" th:class="${nums==pageInfo.getPageNum()}? 'active'">
-                        <a th:href="@{/(pageNum=${nums})}">[[${nums}]]</a>
+                        <a th:href="@{/(pageNum=${nums},search=${search})}">[[${nums}]]</a>
                     </li>
                     <li th:if="${!pageInfo.isIsLastPage()}">
-                        <a th:href="@{/(pageNum=${pageInfo.getPages()})}" aria-label="Next">
+                        <a th:href="@{/(pageNum=${pageInfo.getPages()},search=${search})}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>

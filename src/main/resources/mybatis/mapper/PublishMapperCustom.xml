@@ -2,8 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.community.mapper.PublishMapperCustom">
 
-  <select id="selectPublishList" resultType="com.company.community.models.Publish">
-    select * from publish order by id desc
+  <select id="selectPublishList"  resultType="com.company.community.models.Publish">
+    select * from publish
+    <where>
+       <!--Mapper文件中当我们的入参为entity实体，或者map的时候，使用if 参数判断没任何问题。
+         但是当我们的入参为java.lang.Integer 或者 java.lang.String的时候，这时候就需要注意一些事情了
+        mybatis有内置对象_parameter，对于单个传参的传入和判断，必须用_parameter处理，而不是对象名字，例：search 等等
+        -->
+      <if test="_parameter!=null and _parameter!=''">
+        and title regexp #{search}
+      </if>
+    </where>
+      order by id desc
   </select>
 
   <select id="selectPublistByCreatorId" resultType="com.company.community.models.Publish">

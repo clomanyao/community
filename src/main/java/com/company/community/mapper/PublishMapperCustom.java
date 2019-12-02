@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PublishMapperCustom {
 
-    List<Publish> selectPublishList();
+    List<Publish> selectPublishList(String search);
 
     List<Publish> selectPublistByCreatorId(Integer createId);
 
