@@ -32,7 +32,8 @@ gmt_create BIGINT,
 gmt_modified BIGINT,
 like_count int(11)  DEFAULT 0,
 context LONGTEXT,
-comment_count int(11) DEFAULT 0
+comment_count int(11) DEFAULT 0,
+anno_type int(11) DEFAULT 0 not null
 )
 
 create table if not EXISTS notification(

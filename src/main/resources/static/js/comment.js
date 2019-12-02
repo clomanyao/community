@@ -41,12 +41,8 @@ function postcomment() {
     var questionId = $("#question_id").val();
     var context = $("#comment_context").val();
     var anno=document.getElementById("anno").value;
-    if(anno=='实名'){
-        //anno为实名，表示现在为匿名提交，anntype=1
-        comment(questionId, 1, context,1);
-    }else{
-        comment(questionId, 1, context,0);
-    }
+    //anno为实名，表示现在为匿名提交，anntype=1
+    comment(questionId, 1, context,anno=='实名'? 1:0);
 }
 
 /*
@@ -55,14 +51,8 @@ function postcomment() {
 function secondcommment(e) {
     var dataId = e.getAttribute("data-second");
     var replycontext = $("#second" + dataId).val();
-    var secondanno=document.getElementById("secondanno").value;
-    //comment(dataId,2,replycontext,0);
-    if(secondanno=='实名'){
-        //anno为实名，表示现在为匿名提交，anntype=1
-        comment(dataId, 2, replycontext,1);
-    }else{
-        comment(dataId, 2, replycontext,0);
-    }
+    var secondanno=document.getElementById("secondanno"+dataId).value;
+    comment(dataId,2,replycontext,secondanno=='实名'? 1: 0);
 }
 
 
@@ -227,11 +217,12 @@ function anonymous() {
         $("#anno").attr("value","匿名");
     }
 }
-function twolevelanonymous() {
-    var secondanno = document.getElementById("secondanno").value;
+function twolevelanonymous(e) {
+    var datatwolevel = e.getAttribute("data-twolevel");
+    var secondanno = document.getElementById("secondanno"+datatwolevel).value;
     if(secondanno=='实名'){
-        $("#secondanno").attr("value","匿名");
+        $("#secondanno"+datatwolevel).attr("value","匿名");
     }else {
-        $("#secondanno").attr("value","实名");
+        $("#secondanno"+datatwolevel).attr("value","实名");
     }
 }

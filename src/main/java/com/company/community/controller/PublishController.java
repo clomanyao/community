@@ -92,6 +92,10 @@ public class PublishController {
             model.addAttribute("error","标签不能为空！");
             return "publish";
         }
+        if(publish.getTitle().trim().length()>25){
+            model.addAttribute("error","问题标题不能超过25个字哦！");
+            return "publish";
+        }
         String tags = TagPrivoder.conditionalTags(publish.getTag().trim());
         if(tags!=null){
             model.addAttribute("error","非法标签"+tags);
