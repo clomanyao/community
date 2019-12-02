@@ -127,3 +127,17 @@
 .secondanno{
     margin-left: 650px;
 }
+.copyright{
+    margin-left: 40%;
+    color: #0f0f0f;
+}
+.java{
+    background-color: whitesmoke;
+}
+.java:hover{
+    background-color: #2aabd2;
+}
+.copyrightimg{
+    width: 20px;
+    height: 20px;
+}
