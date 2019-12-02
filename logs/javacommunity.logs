@@ -1,0 +1,9 @@
+2019-12-02 22:06:36.891  INFO 21724 --- [restartedMain] c.c.community.CommunityApplication       : Starting CommunityApplication on freshships with PID 21724 (D:\idea3\community\target\classes started by lenovo in D:\idea3\community)
+2019-12-02 22:06:36.912  INFO 21724 --- [restartedMain] c.c.community.CommunityApplication       : No active profile set, falling back to default profiles: default
+2019-12-02 22:06:37.132  INFO 21724 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-12-02 22:06:37.132  INFO 21724 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-12-02 22:06:42.703  INFO 21724 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8887 (http)
+2019-12-02 22:06:42.905  INFO 21724 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-02 22:06:42.906  INFO 21724 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-12-02 22:06:43.477  INFO 21724 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-02 22:06:43.481  INFO 21724 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 6348 ms
