@@ -47,7 +47,7 @@ public class CommentService {
             commentMapperCustom.insert(comment);
             publishMapperCustom.inComment(comment.getParentId());
             //问题通知
-            if(userId!=comment.getCommentator()){
+            if(userId!=publish.getCreator()){
                 createNotice(comment, NotificationTypeEnum.QUESTIONNOTICE.getType(), publish.getCreator());
             }
         } else {
@@ -61,7 +61,7 @@ public class CommentService {
                 commentMapper.insert(comment);
                 commentMapperCustom.updateCommentCount(comment.getParentId());
                 //评论通知
-                if(userId!=comment.getCommentator()){
+                if(userId!=dbcomment.getCommentator()){
                     createNotice(comment, NotificationTypeEnum.COMMENTNOTICE.getType(), dbcomment.getCommentator());
                 }
             }

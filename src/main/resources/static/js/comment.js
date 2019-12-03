@@ -61,7 +61,7 @@ function secondcommment(e) {
 * */
 function login() {
     window.localStorage.setItem("close", true);
-    window.open("https://github.com/login/oauth/authorize?client_id=af512df7287f4930dfe6&redirect_uri=http://localhost:8887/callback&scope=user&state=1");
+    window.open("https://github.com/login/oauth/authorize?client_id=af512df7287f4930dfe6&redirect_uri="+window.location.protocol+"//"+window.location.host+"/callback&scope=user&state=1");
 }
 
 

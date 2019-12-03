@@ -7,7 +7,7 @@ CREATE TABLE `user`  (
   `GMT_MODIFIED` bigint(20) ,
   `bio` varchar(256) ,
   `avatar_url` varchar(100)
-)
+);
 
 
 create table if not EXISTS publish(
@@ -21,7 +21,7 @@ comment_count int DEFAULT 0,
 view_count int default 0,
 like_count int default 0,
 tag VARCHAR(256)
-)
+);
 
 create table if not EXISTS comment(
 id int(11) PRIMARY key not null auto_increment,
@@ -34,7 +34,7 @@ like_count int(11)  DEFAULT 0,
 context LONGTEXT,
 comment_count int(11) DEFAULT 0,
 anno_type int(11) DEFAULT 0 not null
-)
+);
 
 create table if not EXISTS notification(
 id int(11) PRIMARY key not null auto_increment,
@@ -45,7 +45,7 @@ type int(11),
 gmt_create bigint(20),
 gmt_modified bigint(20),
 status int(11) DEFAULT 0
-)
+);
 
 create table if not EXISTS likeCount(
 id int(11) PRIMARY key not null auto_increment,
