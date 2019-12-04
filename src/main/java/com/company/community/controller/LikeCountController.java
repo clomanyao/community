@@ -1,8 +1,8 @@
 package com.company.community.controller;
 
+import com.company.community.enums.LikeCountEnum;
 import com.company.community.mapper.CommentMapper;
 import com.company.community.mapper.LikecountMapper;
-import com.company.community.models.Comment;
 import com.company.community.models.Likecount;
 import com.company.community.models.LikecountExample;
 import com.company.community.models.User;
@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,8 +33,9 @@ public class LikeCountController {
 
 
     @RequestMapping(value = "/like",method = RequestMethod.POST)
-    public ModelAndView likeCount(@RequestBody Likecount likecount,
-                                  HttpServletRequest request, Model model){
+    public @ResponseBody
+    Object likeCount(@RequestBody Likecount likecount,
+                     HttpServletRequest request, Model model){
         System.out.println("..................."+likecount.getId());
         Integer id = likecount.getId();
         System.out.println("..................................."+id);
@@ -52,10 +54,8 @@ public class LikeCountController {
             likeCountService.insertAndupdateCommentLikeCount(id, user.getId());
             log.info("点赞成功");
         }
-        Comment comment = commentMapper.selectByPrimaryKey(id);
-        Integer questionId=comment.getParentId();
-        //return "redirect:question/"+comment.getParentId();
-        return new ModelAndView("redirect:/question/"+questionId);
+        return LikeCountEnum.LIKECOUNT.getCode();
+        //return new ModelAndView("redirect:/question/"+questionId);
     }
 
 }
