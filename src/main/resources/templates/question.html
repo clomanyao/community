@@ -21,15 +21,15 @@
             });
         });
     </script>
-    <script type="application/javascript">
-        window.onload=function () {
-            var like = window.localStorage.getItem("like");
-            if (like == "true") {
-                window.localStorage.removeItem("like");
-                window.location.reload();
-            }
-        }
-    </script>
+<!--    <script type="application/javascript">-->
+<!--        window.onload=function () {-->
+<!--            var like = window.localStorage.getItem("like");-->
+<!--            if (like == "true") {-->
+<!--                window.localStorage.removeItem("like");-->
+<!--               window.location.reload();-->
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
 </head>
 <body style="background-color: #efefef">
 <div th:replace="~{bar::copy}"></div>
