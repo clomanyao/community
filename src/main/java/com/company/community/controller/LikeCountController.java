@@ -7,16 +7,17 @@ import com.company.community.models.Likecount;
 import com.company.community.models.LikecountExample;
 import com.company.community.models.User;
 import com.company.community.service.LikeCountService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
+@Slf4j
 @Controller
 public class LikeCountController {
 
@@ -29,9 +30,13 @@ public class LikeCountController {
 
 
 
-    @PostMapping("/like/{id}")
-    public ModelAndView likeCount(@PathVariable("id") Integer id,
+    @PostMapping("/like")
+    public ModelAndView likeCount(@RequestBody Likecount likecount,
                                   HttpServletRequest request, Model model){
+        System.out.println("..................."+likecount.getId());
+        Integer id = likecount.getId();
+        System.out.println("..................................."+id);
+        log.info("进入点赞模块");
         User user =(User)request.getSession().getAttribute("user");
         if(user==null){
             return new ModelAndView("redirect:/");
@@ -41,8 +46,10 @@ public class LikeCountController {
         List<Likecount> likecounts = likecountMapper.selectByExample(likecountexample);
         if(likecounts.size()>=1&&likecounts!=null){
             model.addAttribute("haspraise","已经点过赞了");
+            log.info("已经点过赞了");
         }else{
             likeCountService.insertAndupdateCommentLikeCount(id, user.getId());
+            log.info("点赞成功");
         }
         Comment comment = commentMapper.selectByPrimaryKey(id);
         Integer questionId=comment.getParentId();

@@ -193,11 +193,20 @@ function showTag() {
 * */
 function likeCount(e) {
     var id = e.getAttribute("data-like");
-    var xmlhttp = new XMLHttpRequest();
-    var url = window.location.protocol+"//"+window.location.host+"/like/" + id;
-    //window.localStorage.setItem("like", true);
-    xmlhttp.open("POST", url, true); //第三个参数是同步异步,主线程只能异步
-    xmlhttp.send();
+    // var xmlhttp = new XMLHttpRequest();
+    // var url = window.location.protocol+"//"+window.location.host+"/like/" + id;
+    //     //window.localStorage.setItem("like", true);
+    // xmlhttp.open("POST", url, true); //第三个参数是同步异步,主线程只能异步
+    // xmlhttp.send();
+    $.ajax({
+        url: "/like",
+        type: "post",
+        contentType: "application/json;charset=utf-8",
+        data: JSON.stringify({
+          "id":id
+        }),
+        dataType: "json",//返回的数据格式为json
+    });
     window.location.reload();  //刷新本页面
 }
 
