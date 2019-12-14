@@ -2,8 +2,9 @@ package com.company.community.mapper;
 
 import com.company.community.models.Notification;
 import com.company.community.models.NotificationExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface NotificationMapper {
     long countByExample(NotificationExample example);

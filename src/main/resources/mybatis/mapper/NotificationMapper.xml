@@ -10,6 +10,7 @@
     <result column="gmt_create" jdbcType="BIGINT" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="BIGINT" property="gmtModified" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="anno_type" jdbcType="INTEGER" property="annoType" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, notifier, receiver, outer_id, type, gmt_create, gmt_modified, status
+    id, notifier, receiver, outer_id, type, gmt_create, gmt_modified, status, anno_type
   </sql>
   <select id="selectByExample" parameterType="com.company.community.models.NotificationExample" resultMap="BaseResultMap">
     select
@@ -105,10 +106,12 @@
   <insert id="insert" parameterType="com.company.community.models.Notification">
     insert into notification (id, notifier, receiver, 
       outer_id, type, gmt_create, 
-      gmt_modified, status)
+      gmt_modified, status, anno_type
+      )
     values (#{id,jdbcType=INTEGER}, #{notifier,jdbcType=INTEGER}, #{receiver,jdbcType=INTEGER}, 
       #{outerId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{gmtCreate,jdbcType=BIGINT}, 
-      #{gmtModified,jdbcType=BIGINT}, #{status,jdbcType=INTEGER})
+      #{gmtModified,jdbcType=BIGINT}, #{status,jdbcType=INTEGER}, #{annoType,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.company.community.models.Notification">
     insert into notification
@@ -137,6 +140,9 @@
       <if test="status != null">
         status,
       </if>
+      <if test="annoType != null">
+        anno_type,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -162,6 +168,9 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="annoType != null">
+        #{annoType,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -198,6 +207,9 @@
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
+      <if test="record.annoType != null">
+        anno_type = #{record.annoType,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +224,8 @@
       type = #{record.type,jdbcType=INTEGER},
       gmt_create = #{record.gmtCreate,jdbcType=BIGINT},
       gmt_modified = #{record.gmtModified,jdbcType=BIGINT},
-      status = #{record.status,jdbcType=INTEGER}
+      status = #{record.status,jdbcType=INTEGER},
+      anno_type = #{record.annoType,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +254,9 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
+      <if test="annoType != null">
+        anno_type = #{annoType,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -252,7 +268,8 @@
       type = #{type,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=BIGINT},
       gmt_modified = #{gmtModified,jdbcType=BIGINT},
-      status = #{status,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER},
+      anno_type = #{annoType,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

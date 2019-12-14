@@ -54,7 +54,7 @@
             <!--通知信息-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${publishDTOS==null}">
                 <div th:each="notificationDTO:${notificationDTOS}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <sapn class="notification" th:text="${notificationDTO.user.name}"></sapn>&nbsp;
+                    <sapn class="notification" th:text="${notificationDTO.annoType==0}?${notificationDTO.user.name}:'匿名用户'"></sapn>&nbsp;
                     <sapn th:text="${notificationDTO.name}"></sapn>&nbsp;
                     <span class="notification" >
                         <a th:href="@{'/notification/'+${notificationDTO.id}}" th:text="${notificationDTO.publish!=null?notificationDTO.publish.title:notificationDTO.comment.context}"></a>

@@ -583,6 +583,66 @@ public class NotificationExample {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
+
+        public Criteria andAnnoTypeIsNull() {
+            addCriterion("anno_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnoTypeIsNotNull() {
+            addCriterion("anno_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnoTypeEqualTo(Integer value) {
+            addCriterion("anno_type =", value, "annoType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnoTypeNotEqualTo(Integer value) {
+            addCriterion("anno_type <>", value, "annoType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnoTypeGreaterThan(Integer value) {
+            addCriterion("anno_type >", value, "annoType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnoTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("anno_type >=", value, "annoType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnoTypeLessThan(Integer value) {
+            addCriterion("anno_type <", value, "annoType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnoTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("anno_type <=", value, "annoType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnoTypeIn(List<Integer> values) {
+            addCriterion("anno_type in", values, "annoType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnoTypeNotIn(List<Integer> values) {
+            addCriterion("anno_type not in", values, "annoType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnoTypeBetween(Integer value1, Integer value2) {
+            addCriterion("anno_type between", value1, value2, "annoType");
+            return (Criteria) this;
+        }
+
+        public Criteria andAnnoTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("anno_type not between", value1, value2, "annoType");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

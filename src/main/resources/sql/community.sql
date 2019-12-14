@@ -44,7 +44,8 @@ outer_id int(11),#区分是问题的id还是回复的id
 type int(11),
 gmt_create bigint(20),
 gmt_modified bigint(20),
-status int(11) DEFAULT 0
+status int(11) DEFAULT 0,
+anno_type int(11) DEFAULT 0
 );
 
 create table if not EXISTS likeCount(

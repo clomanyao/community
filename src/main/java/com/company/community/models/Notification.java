@@ -17,6 +17,8 @@ public class Notification {
 
     private Integer status;
 
+    private Integer annoType;
+
     public Integer getId() {
         return id;
     }
@@ -79,5 +81,13 @@ public class Notification {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getAnnoType() {
+        return annoType;
+    }
+
+    public void setAnnoType(Integer annoType) {
+        this.annoType = annoType;
     }
 }
