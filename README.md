@@ -18,6 +18,28 @@
 
 #### 项目发布
 - git
-- jdk
+- jdk（1.8）
 - maven
+- mysql
 
+安装git 
+
+```shell
+yum install git
+```
+
+- 安装jdk
+
+[详细安装教程](https://blog.csdn.net/u011365831/article/details/79301188)
+
+[jdk配置教程](https://www.cnblogs.com/lamp01/p/8932740.html)
+
+- 安装maven
+
+[详细教程](https://www.cnblogs.com/jtnote/p/9982185.html)
+
+- 安装mysql
+
+[详细教程](https://blog.csdn.net/hk9024/article/details/81702741)
+
+[解决mysql插入数据乱码问题](https://blog.csdn.net/leen0304/article/details/80534609)
